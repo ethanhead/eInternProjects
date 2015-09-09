@@ -4,8 +4,6 @@ namespace AptFinder.Migrations
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
-    using AptFinder.Models;
-    using System.Collections.Generic;
 
     internal sealed class Configuration : DbMigrationsConfiguration<AptFinder.DAL.ApartmentContext>
     {
@@ -17,13 +15,18 @@ namespace AptFinder.Migrations
 
         protected override void Seed(AptFinder.DAL.ApartmentContext context)
         {
-            var landlords = new List<Landlord>
-            {
-                new Landlord { LandlordID = 1, Name = "Shyla Buff", Phone = "123-133-5555", Company = "Buffco", Email = "buff@buff.com" }
-            };
+            //  This method will be called after migrating to the latest version.
 
-            landlords.ForEach(s => context.Landlord.AddOrUpdate(p => p.Name, s));
-            context.SaveChanges();
+            //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
+            //  to avoid creating duplicate seed data. E.g.
+            //
+            //    context.People.AddOrUpdate(
+            //      p => p.FullName,
+            //      new Person { FullName = "Andrew Peters" },
+            //      new Person { FullName = "Brice Lambson" },
+            //      new Person { FullName = "Rowan Miller" }
+            //    );
+            //
         }
     }
 }

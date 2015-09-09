@@ -10,6 +10,8 @@ namespace AptFinder.Controllers
     public class LocationController : Controller
     {
         private ILocationRepository repo;
+        public int PageSize = 3;
+
         public LocationController(ILocationRepository locRepo)
         {
             repo = locRepo;
@@ -18,7 +20,8 @@ namespace AptFinder.Controllers
         public ActionResult LocationSearch ()
         {
 
-            return View(repo.Locations);
+            return View(repo.Locations
+                .OrderBy(p => p.Name));
         }
     }
 }

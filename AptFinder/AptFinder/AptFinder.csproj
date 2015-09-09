@@ -134,6 +134,7 @@
     <Compile Include="Controllers\LandlordsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="DAL\ApartmentContext.cs" />
+    <Compile Include="Concrete\EFLocationRepository.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -142,6 +143,14 @@
     <Compile Include="Migrations\201509081809174_InitCreate.cs" />
     <Compile Include="Migrations\201509081809174_InitCreate.Designer.cs">
       <DependentUpon>201509081809174_InitCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509090215138_AddNameToLocation.cs" />
+    <Compile Include="Migrations\201509090215138_AddNameToLocation.Designer.cs">
+      <DependentUpon>201509090215138_AddNameToLocation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509090247240_MakeZipInt.cs" />
+    <Compile Include="Migrations\201509090247240_MakeZipInt.Designer.cs">
+      <DependentUpon>201509090247240_MakeZipInt.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Apartment.cs" />
@@ -171,6 +180,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201509081809174_InitCreate.resx">
       <DependentUpon>201509081809174_InitCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509090215138_AddNameToLocation.resx">
+      <DependentUpon>201509090215138_AddNameToLocation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509090247240_MakeZipInt.resx">
+      <DependentUpon>201509090247240_MakeZipInt.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

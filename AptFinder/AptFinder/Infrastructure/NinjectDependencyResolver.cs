@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using AptFinder.Concrete;
+using AptFinder.Abstract;
+using AptFinder.Models;
 using Ninject;
 
 namespace AptFinder.Infrastructure
@@ -26,7 +29,7 @@ namespace AptFinder.Infrastructure
         }
         public void AddBindings()
         {
-
+            kernel.Bind<ILocationRepository>().To<EFLocationRepository>();
         }
     }
 }
