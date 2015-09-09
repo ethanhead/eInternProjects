@@ -21,7 +21,9 @@ namespace AptFinder.Controllers
         {
 
             return View(repo.Locations
-                .OrderBy(p => p.Name));
+                .OrderBy(p => p.Name)
+                .Skip((PageSize-3)*PageSize)
+                .Take(PageSize));
         }
     }
 }

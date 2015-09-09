@@ -129,8 +129,15 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Abstract\IApartmentRepository.cs" />
+    <Compile Include="Abstract\ILandlordRepository.cs" />
+    <Compile Include="Abstract\ITenantRepository.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Concrete\EFLandlordRepository.cs" />
+    <Compile Include="Concrete\EFTenantRepository.cs" />
+    <Compile Include="Concrete\EFApartmentRepository.cs" />
+    <Compile Include="Controllers\ApartmentController.cs" />
     <Compile Include="Controllers\LandlordsController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
     <Compile Include="DAL\ApartmentContext.cs" />
@@ -166,6 +173,7 @@
     <Content Include="Views\SearchResult.cshtml" />
     <Content Include="Views\Location\LocationSearch.cshtml" />
     <Content Include="Views\_Layout.cshtml" />
+    <Content Include="Views\Apartment\ApartmentPage.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
