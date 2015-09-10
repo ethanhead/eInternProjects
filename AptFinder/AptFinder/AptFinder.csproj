@@ -159,6 +159,14 @@
     <Compile Include="Migrations\201509090247240_MakeZipInt.Designer.cs">
       <DependentUpon>201509090247240_MakeZipInt.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509091957138_AddedDescriptionColumn.cs" />
+    <Compile Include="Migrations\201509091957138_AddedDescriptionColumn.Designer.cs">
+      <DependentUpon>201509091957138_AddedDescriptionColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509092046583_AddedAvailability.cs" />
+    <Compile Include="Migrations\201509092046583_AddedAvailability.Designer.cs">
+      <DependentUpon>201509092046583_AddedAvailability.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Apartment.cs" />
     <Compile Include="Models\Landlord.cs" />
@@ -194,6 +202,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509090247240_MakeZipInt.resx">
       <DependentUpon>201509090247240_MakeZipInt.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509091957138_AddedDescriptionColumn.resx">
+      <DependentUpon>201509091957138_AddedDescriptionColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509092046583_AddedAvailability.resx">
+      <DependentUpon>201509092046583_AddedAvailability.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

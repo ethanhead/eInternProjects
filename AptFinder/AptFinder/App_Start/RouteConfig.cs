@@ -14,15 +14,9 @@ namespace AptFinder
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
-                name: "Default",
+                name: "LocationPage",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Location", action = "LocationSearch", id = UrlParameter.Optional }
-            );
-
-            routes.MapRoute(
-                name: "LocationPage",
-                url: "Location/{action}/LocID",
-                defaults: new { controller = "Location", action = "LocationSearch", LocID = UrlParameter.Optional }
             );
         }
     }

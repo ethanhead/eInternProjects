@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AptFinder.Abstract;
+using AptFinder.Models;
 
 namespace AptFinder.Controllers
 {
@@ -18,13 +19,13 @@ namespace AptFinder.Controllers
             LocRepo = lRepo;
         }
 
-        public ActionResult ApartmentPage(int LocID)
+        public ActionResult ApartmentPage(int id)
         {
-            ViewBag.thisLocation = LocRepo.Locations.Where(l => l.LocationID == LocID);
-            var apartmentsAtLoc = AptRepo.Apartments.Where(a => a.LocationID == LocID);
+            ViewBag.thisLocation = LocRepo.Locations.Where(l => l.LocationID == id).First();
+            var apartmentsAtLoc = AptRepo.Apartments.Where(a => a.LocationID == id);
 
-            ViewBag.maxPrice = apartmentsAtLoc.Select(i=>i.Price).Max();
-            ViewBag.minPrice = apartmentsAtLoc.Select(i => i.Price).Min();
+            ViewBag.maxRent = apartmentsAtLoc.Select(i=>i.Rent).Max();
+            ViewBag.minRent = apartmentsAtLoc.Select(i => i.Rent).Min();
 
             ViewBag.apartments = apartmentsAtLoc;          
 

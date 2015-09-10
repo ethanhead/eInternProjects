@@ -1,48 +1,74 @@
 ﻿@{
     Layout = "~/Views/_Layout.cshtml";
+    var AptLocation = ViewBag.thisLocation;
+    var Apartments = ViewBag.apartments;
 }
-
+<style>
+    .container { max-width : 70VW}
+</style>
 <div class="row">
     <div class="col-md-6 col-lg-6">
         Photo Carousal
     </div>
     <div class="col-md-6 col-lg-6">
-        Map
-    </div>
-    <br />
-    <br />
-    <br />
-    <br />
-    <br />
-</div>
-<div class="row">    
-    <div class="col-md-4 col-lg-4">
-        @ViewBag.thisLocation[0].Name
-    </div>
-    <div class="col-md-4 col-lg-4">
-        @ViewBag.thisLocation[0].
-    </div>
-    <div class="col-md-4 col-lg-4">
-        @ViewBag.thisLocation[0].Name
-    </div>
-</div>
-<div class="row">
-    <div class="col-md-8 col-lg-8">
-        <div class="row">
-            
+        <div id="map" style="height: 300px; border-radius:25px">
+
         </div>
     </div>
-    <div class="col-md-4 col-lg-4">
-        Rounded Edge div with Contact Landlord Form
-    </div>
-    <br />
-    <br />
-    <br />
+    
 </div>
+<hr />
+<div class="row">    
+        
+    <div class="col-md-8 col-lg-8">
+        <h3>@AptLocation.Name</h3>        
+        <p>@AptLocation.Street, @AptLocation.City, @AptLocation.State, @AptLocation.Zip</p>
+    </div>
+    <div class="col-md-4 col-lg-4">
+        <h3>$@ViewBag.minRent - $@ViewBag.maxRent</h3>
+    </div>
+</div>
+<hr />
+<div class="row">
+    <h3>Available Units</h3>
+    <table class="table">
+        <tr><td>Beds</td><td>Baths</td><td>Pets Alowed</td><td>Rent</td><td></td></tr>
+        @foreach (var apt in Apartments)
+        {
+            <tr><td>@apt.Beds</td><td>@apt.Baths</td><td>@(apt.IsPetFriendly ? "Yes" : "No")</td>
+                <td>$@apt.Rent</td><td><a href='@Url.Action("RequestApartment","Apartment")' class="btn btn-default btn-sm">Request this Apartment</a></td></tr>
+        }
+    </table>           
+</div>
+<br />
+<br />
+<br />
+<hr />
 <div class="row">
     <h3>About this location:</h3>
-    Location info
+    @(AptLocation.Description != null ? AptLocation.Description : "This Location has no Description")
     <br />
     <br />
     <br />
 </div>
+<script type="text/javascript">
+
+var map;
+function initMap() {
+
+    var myLatLng = {lat: @AptLocation.Latitude, lng: @AptLocation.Longitude}
+    map = new google.maps.Map(document.getElementById('map'), {
+        center: myLatLng,
+        zoom: 8
+    });
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: '@AptLocation.Name'
+    });
+}
+
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU-9q6heUHwYsxyvoA7VxzUa_aNsKzCDA&callback=initMap">
+</script>

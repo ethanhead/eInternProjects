@@ -9,9 +9,10 @@ namespace AptFinder.Models
     {
         public int ApartmentID { get; set; }
         public int LocationID { get; set; }
-        public float Price { get; set; }
+        public float Rent { get; set; }
         public int Beds { get; set; }
         public int Baths { get; set; }
         public bool IsPetFriendly { get; set; }
+        public bool IsAvailable { get; set; }
     }
 }

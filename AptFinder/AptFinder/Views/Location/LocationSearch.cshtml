@@ -4,19 +4,20 @@
 @{ 
     Layout = "~/Views/_Layout.cshtml";
 }
-
-<div class="col-md-5 col-lg-5">
-    @foreach (var l in Model)
-    {        
-        <a href="@Url.Action("Apartment", "ApartmentPage", new { LocId = l.LocationID })">
-            <div class="row">
-                <h3>@l.Name</h3>
-                <h4>@l.Street, @l.City, @l.State, @l.Zip</h4>
-            </div>
-        </a>
-        <hr />
-    }
-</div>
-<div class="col-lg-7 col-md-7">
-    Here is where the map goes
+<div class="row">
+    <div class="col-md-5 col-lg-5">
+        @foreach (var l in Model)
+        {
+            <a href="@Url.Action("ApartmentPage", "Apartment", new { id = l.LocationID })">
+                <div class="row">
+                    <h3>@l.Name</h3>
+                    <h4>@l.Street, @l.City, @l.State, @l.Zip</h4>
+                </div>
+            </a>
+            <hr />
+        }
+    </div>
+    <div class="col-lg-7 col-md-7">
+        Here is where the map goes
+    </div>
 </div>

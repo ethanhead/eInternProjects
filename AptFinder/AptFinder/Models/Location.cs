@@ -17,5 +17,6 @@ namespace AptFinder.Models
         public String City { get; set; }
         public String State { get; set; }
         public int Zip { get; set; }
+        public String Description { get; set; }
     }
 }
