@@ -145,3 +145,5 @@ C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\ob
 C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.pdb
 C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.Migrations.AddedDescriptionColumn.resources
 C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.Migrations.AddedAvailability.resources
+C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.Migrations.AddedAptNum.resources
+C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.Migrations.AddedLocationToTenantAgain.resources

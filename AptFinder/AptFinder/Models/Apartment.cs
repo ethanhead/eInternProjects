@@ -9,6 +9,7 @@ namespace AptFinder.Models
     {
         public int ApartmentID { get; set; }
         public int LocationID { get; set; }
+        public String ApartmentNum { get; set; }
         public float Rent { get; set; }
         public int Beds { get; set; }
         public int Baths { get; set; }

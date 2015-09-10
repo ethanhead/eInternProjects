@@ -25,8 +25,7 @@ namespace AptFinder.Controllers
             var apartmentsAtLoc = AptRepo.Apartments.Where(a => a.LocationID == id);
 
             ViewBag.maxRent = apartmentsAtLoc.Select(i=>i.Rent).Max();
-            ViewBag.minRent = apartmentsAtLoc.Select(i => i.Rent).Min();
-
+            ViewBag.minRent = apartmentsAtLoc.Select(i => i.Rent).Min();            
             ViewBag.apartments = apartmentsAtLoc;          
 
             return View();

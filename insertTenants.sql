@@ -1,0 +1,17 @@
+Insert Into Tenants (ApartmentID,LocationID,Name,Phone,Email)
+values (1,1,'Walt Lin','(434)365-2342','lin@gmail.com'),
+(2,1,'Paul Blart','(555)242-6666','mallcop@yahoo.com'),
+(2,1,'Bubbles','(588)888-6666','bubs@gmail.com'),
+(3,1,'Oprah Winfrey','(867)262-2564','ow@oprah.com'),
+(3,1,'Freddy Krugar','(999)100-2000','freddy@gmail.com'),
+(3,1,'Pat Sajack','(120)234-7657','patsajack@gmail.com'),
+(4,2,'Girbles Mcgee','(404)222-2234','girbs@yahoo.com'),
+(5,2,'Popeye','(675)234-7777','popeye@spinach.com'),
+(5,2,'Mr. Bean','(424)111-4342','mrbean@gmail.com'),
+(6,2,'Spongebob SquarePants','(999)444-4444','imready@bikinibottom.com'),
+(6,2,'Harry Houdini','(908)113-4321','poof@imgone.com'),
+(6,2,'Night Wing','(493)332-2465','nw@oncewasrobin.com'),
+(7,3,'Batman','(590)236-1114','bat@man.com'),
+(7,3,'Kermit the Frog','(764)224-2444','somewhere@overtherainbow.com'),
+(7,3,'The Flash','(434)365-2342','speedy@yahoo.com'),
+(8,3,'Wonderwoman','(434)365-2342','rosie@theriveter.com')

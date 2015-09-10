@@ -1,0 +1,74 @@
+﻿
+@{
+    Layout = "~/Views/_Layout.cshtml";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+
+<h3>Edit @ViewBag.Location.Name</h3>
+
+<!-- Modal Triggers -->
+<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#addAptModal">Add Apartment</button>
+<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#addTenModal">Add Tenant</button>
+<br />
+
+<!-- Add Apartment Modal -->
+<div id="addAptModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Apartment</h4>
+            </div>
+            <div class="modal-body">
+                <p>. . .</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Tenant Modal-->
+<div id="addTenModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Tenant</h4>
+            </div>
+            <div class="modal-body">
+                <p>...</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<h3>Apartments</h3>
+<table class="table">
+    <thead>
+        <tr><td>Apartment Number</td><td># of Beds</td><td># of Baths</td><td>Tenants</td></tr>
+    </thead>
+    <tbody>
+        @foreach (var apt in ViewBag.Apartments)
+        {
+            <tr><td>@apt.ApartmentNum</td><td>@apt.Beds</td><td>@apt.Baths</td>
+                <td>
+                    @fore (var pair in ViewBag.Tenants)
+                    {
+                        foreach (var tenant in ViewBag.Tenants[pair.Key])
+                        {
+                            <a href='@Url.Action("EditTenant", "Tenant")'> @tenant.Name </a>
+                        }                    
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

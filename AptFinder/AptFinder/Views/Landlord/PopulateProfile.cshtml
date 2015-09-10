@@ -1,0 +1,29 @@
+﻿@{
+    Layout = "~/Views/_Layout.cshtml";
+
+    var locs = ViewBag.Locations;
+
+}
+<style>
+    td {text-align: center}
+</style>
+
+
+<div>
+    <h3>@ViewBag.Landlord.Name 's Profile</h3>
+    
+    <table class="table">        
+        <thead><tr><td>Location</td><td><a href='@Url.Action("AddLocation","Location")' class="btn btn-sm btn-default">Add Location</a></td></tr></thead>
+        <tbody>
+            @foreach (var l in locs)
+            {
+                <tr>
+                    <td>@l.Name</td>
+                    <td>
+                        <a href='@Url.Action("EditLocation","Location", new { id = l.LocationID })' class="btn btn-default btn-sm">Edit Location</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
