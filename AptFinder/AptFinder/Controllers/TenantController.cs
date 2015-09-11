@@ -25,10 +25,10 @@ namespace AptFinder.Controllers
 
         public ActionResult TenantProfile()
         {
-            ViewBag.Tenant = 
-            ViewBag.Apartment =
-            ViewBag.Location =
-            ViewBag.Landlord = 
+            //ViewBag.Tenant = 
+            //ViewBag.Apartment =
+            //ViewBag.Location =
+            //ViewBag.Landlord = 
             return View();
         }
     }

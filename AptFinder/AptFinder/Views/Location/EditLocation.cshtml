@@ -1,7 +1,6 @@
 ﻿@using AptFinder.Models
 @{
     Layout = "~/Views/_Layout.cshtml";
-    ViewBag.AvailableLocs
 }
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -19,25 +18,30 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add Apartment to @ViewBag.Location</h4>
+                <h4 class="modal-title">Add Apartment to @ViewBag.Location.Name</h4>
             </div>
             <div class="modal-body">
-                <form class="form-control" id="addAptForm" name="addAptForm">
-                    <label for="aptNum">The Apartment Number</label>
-                    <input type="text" id="aptNum" name="aptNum"/>
-                    <br />
-                    <label for="bedNum">Number of Bedrooms</label>
-                    <input type="number" max="10" min="0" id="bedNum" name="bedNum" />
-                    <br />
-                    <label for="bathNum">Number of Baths</label>
-                    <input type="number" max="10" min="0" id="bathNum" name="bathNum" />
-                    <br />
-                    <label for="pets">Are pets allowed? :</label>
-                    <input type="checkbox" id="pets" name="pets" />
-                    <br />
-                    <label for="available">Is it Available for Leasing? :</label>
-                    <input type="checkbox" id="available" name="available" />
-                    <br />
+                <form id="addAptForm" name="addAptForm">
+                    <div class="form-group">
+                        <label for="aptNum">The Apartment Number</label>
+                        <input class="form-control" type="text" id="aptNum" name="aptNum" />
+                    </div>
+                    <div class="form-group">
+                        <label for="bedNum">Number of Bedrooms</label>
+                        <input class="form-control" type="number" max="10" min="0" id="bedNum" name="bedNum" />
+                    </div>
+                    <div class="form-group">
+                        <label for="bathNum">Number of Baths</label>
+                        <input class="form-control" type="number" max="10" min="0" id="bathNum" name="bathNum" />
+                    </div>
+                    <div class="form-group">
+                        <label for="pets">Are pets allowed? :</label>
+                        <input class="form-control" type="checkbox" id="pets" name="pets" />
+                    </div>
+                    <div class="form-group">
+                        <label for="available">Is it Available for Leasing? :</label>
+                        <input class="form-control" type="checkbox" id="available" name="available" />
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -54,24 +58,31 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Add a Tenant to @ViewBag.Location </h4>
+                <h4 class="modal-title">Add a Tenant to @ViewBag.Location.Name </h4>
             </div>
             <div class="modal-body">
-                <form id="addTenantForm" name="addTenantForm" class="form-control">
-                    <select id="tenantApt" name="tenantApt">
-                        @foreach(var apt in ViewBag.Apartments)
-                        {
-                            <option>@apt.Name</option>
-                        }
-                    </select>
-                    <br /> 
-                    <label for="tenantName">Name :</label>
-                    <input type="text" id="tenantName" name="tenantName"/>
-                    <br />
-                    <label for="tenantPhone">Phone :</label>
-                    <input type="text" id="tenantName" name="tenantName" />
-                    <label for="tenantEmail">Email :</label>
-                    <input type="email" id="tenantEmail" name="tenantEmail" />
+                <form id="addTenantForm" name="addTenantForm">
+                    <div class="form-group">
+                        <label for="tenantApt"></label>
+                        <select class="form-control" id="tenantApt" name="tenantApt">
+                            @foreach (var apt in ViewBag.Apartments)
+                            {
+                                <option>@apt.ApartmentNum - @apt.Beds Beds - @apt.Baths Baths</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="tenantName">Name :</label>
+                        <input class="form-control" type="text" id="tenantName" name="tenantName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="tenantPhone">Phone :</label>
+                        <input class="form-control" type="text" id="tenantName" name="tenantName" />
+                    </div>
+                    <div class="form-group">
+                        <label for="tenantEmail">Email :</label>
+                        <input class="form-control" type="email" id="tenantEmail" name="tenantEmail" />
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -87,17 +98,19 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                <h4 class="modal-title">Remove Apartment from @ViewBag.Location</h4>
+                <h4 class="modal-title">Remove Apartment from @ViewBag.Location.Name</h4>
             </div>
             <div class="modal-body">
-                <form id="removeAptForm" name="removeAptForm" class="form-control">
-                    <label for="removeApt">Apartment to Remove</label>
-                    <select id="removeApt" name="removeApt">
-                        @foreach (var apt in ViewBag.Apartments)
-                        {
-                            <option>@apt.ApartmentNum - @apt.Beds Beds - @apt.Baths Baths</option>
-                        }
-                    </select>
+                <form id="removeAptForm" name="removeAptForm">
+                    <div class="form-group">
+                        <label for="removeApt">Apartment to Remove</label>
+                        <select class="form-control" id="removeApt" name="removeApt">
+                            @foreach (var apt in ViewBag.Apartments)
+                            {
+                                <option>@apt.ApartmentNum - @apt.Beds Beds - @apt.Baths Baths</option>
+                            }
+                        </select>
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
@@ -117,16 +130,18 @@
                 <h4 class="modal-title">Remove Tenant</h4>
             </div>
             <div class="modal-body">
-                <label for="removeTenant">Apartment to Remove</label>
-                <select id="removeTenant" name="removeTenant">
-                    @foreach (KeyValuePair<int, List<Tenant>> pair in ViewBag.Tenants)
-                    {
-                        foreach (var tenant in pair.Value)
+                <div class="form-group">
+                    <label for="removeTenant">Apartment to Remove</label>
+                    <select class="form-control" id="removeTenant" name="removeTenant">
+                        @foreach (KeyValuePair<int, List<Tenant>> pair in ViewBag.Tenants)
                         {
-                            <option>@tenant.Name</option>
+                            foreach (var tenant in pair.Value)
+                            {
+                                <option>@tenant.Name</option>
+                            }
                         }
-                    }
-                </select>
+                    </select>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

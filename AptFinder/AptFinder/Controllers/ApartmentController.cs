@@ -11,7 +11,7 @@ namespace AptFinder.Controllers
     public class AddAptData
     {
         public String AptNum { get; set; }
-        public String bedNum
+        public String bedNum { get; set; }
     }
 
 
@@ -40,8 +40,7 @@ namespace AptFinder.Controllers
 
         [HttpPost]
         public void AddApartment(String aptFormJson)
-        {
-            dynamic stuff = JsonConvert
+        { 
         }
 
 
