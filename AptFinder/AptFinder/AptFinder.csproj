@@ -140,6 +140,7 @@
     <Compile Include="Controllers\ApartmentController.cs" />
     <Compile Include="Controllers\LandlordController.cs" />
     <Compile Include="Controllers\LocationController.cs" />
+    <Compile Include="Controllers\TenantController.cs" />
     <Compile Include="DAL\ApartmentContext.cs" />
     <Compile Include="Concrete\EFLocationRepository.cs" />
     <Compile Include="Global.asax.cs">
@@ -175,6 +176,10 @@
     <Compile Include="Migrations\201509101923317_AddedLocationToTenantAgain.Designer.cs">
       <DependentUpon>201509101923317_AddedLocationToTenantAgain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201509102307233_addedmorestuff.cs" />
+    <Compile Include="Migrations\201509102307233_addedmorestuff.Designer.cs">
+      <DependentUpon>201509102307233_addedmorestuff.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Apartment.cs" />
     <Compile Include="Models\Landlord.cs" />
@@ -202,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Tenant\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201509081809174_InitCreate.resx">
@@ -224,6 +230,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201509101923317_AddedLocationToTenantAgain.resx">
       <DependentUpon>201509101923317_AddedLocationToTenantAgain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509102307233_addedmorestuff.resx">
+      <DependentUpon>201509102307233_addedmorestuff.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

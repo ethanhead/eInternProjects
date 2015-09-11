@@ -1,3 +1,4 @@
+use AptFinder
 Insert Into Locations ( LandlordID,Name,Latitude,Longitude,Street,City,State,Zip)
 values (1,'Camden Dulles Apartments', 38.958495, -77.417581, '2320 Dulles Station Blvd','Herndon', 'VA', 20171),
 (1,'Vienna Park Apartments', 38.886223, -77.244143, '212 Sanoey Cir SE','Vienna','VA', 22180),

@@ -8,6 +8,13 @@ using AptFinder.Models;
 
 namespace AptFinder.Controllers
 {
+    public class AddAptData
+    {
+        public String AptNum { get; set; }
+        public String bedNum
+    }
+
+
     public class ApartmentController : Controller
     {        
         private IApartmentRepository AptRepo;
@@ -18,7 +25,7 @@ namespace AptFinder.Controllers
             AptRepo = aRepo;
             LocRepo = lRepo;
         }
-
+        
         public ActionResult ApartmentPage(int id)
         {
             ViewBag.thisLocation = LocRepo.Locations.Where(l => l.LocationID == id).First();
@@ -30,5 +37,13 @@ namespace AptFinder.Controllers
 
             return View();
         }
+
+        [HttpPost]
+        public void AddApartment(String aptFormJson)
+        {
+            dynamic stuff = JsonConvert
+        }
+
+
     }
 }
