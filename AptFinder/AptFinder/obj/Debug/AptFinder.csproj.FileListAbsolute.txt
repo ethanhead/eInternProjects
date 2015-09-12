@@ -152,3 +152,4 @@ C:\Users\Ethan\Desktop\gitRepos\eInternProjects\AptFinder\AptFinder\obj\Debug\Ap
 C:\Users\Ethan\Desktop\gitRepos\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.Migrations.AddedAptNum.resources
 C:\Users\Ethan\Desktop\gitRepos\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.Migrations.AddedLocationToTenantAgain.resources
 C:\Users\Ethan\Desktop\gitRepos\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.Migrations.addedmorestuff.resources
+C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.Migrations.addedmorestuff.resources

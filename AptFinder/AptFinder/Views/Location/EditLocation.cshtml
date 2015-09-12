@@ -1,4 +1,5 @@
 ﻿@using AptFinder.Models
+@using System.Linq
 @{
     Layout = "~/Views/_Layout.cshtml";
 }
@@ -8,8 +9,13 @@
 <h3>Edit @ViewBag.Location.Name</h3>
 
 <!-- Modal Triggers -->
-<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#addAptModal">Add Apartment</button>
-<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#addTenModal">Add Tenant</button>
+<div class="row">
+    <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#addAptModal">Add Apartment</button>
+    <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#addTenModal">Add Tenant</button>
+    <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#removeAptModal">Remove Apartment</button>
+    <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#removeTenModal">Remove Tenant</button>
+</div>
+
 <br />
 
 <!-- Add Apartment Modal -->
@@ -25,6 +31,10 @@
                     <div class="form-group">
                         <label for="aptNum">The Apartment Number</label>
                         <input class="form-control" type="text" id="aptNum" name="aptNum" />
+                    </div>
+                    <div class="form-group">
+                        <label for="rent">Rent</label>
+                        $<input class="form-control" type="number" id="rent" name="rent" />
                     </div>
                     <div class="form-group">
                         <label for="bedNum">Number of Bedrooms</label>
@@ -107,7 +117,7 @@
                         <select class="form-control" id="removeApt" name="removeApt">
                             @foreach (var apt in ViewBag.Apartments)
                             {
-                                <option>@apt.ApartmentNum - @apt.Beds Beds - @apt.Baths Baths</option>
+                                <option value="@apt.ApartmentID">@apt.ApartmentNum - @apt.Beds Beds - @apt.Baths Baths</option>
                             }
                         </select>
                     </div>
@@ -137,64 +147,91 @@
                         {
                             foreach (var tenant in pair.Value)
                             {
-                                <option>@tenant.Name</option>
+                                <option> @tenant.Name</option>
                             }
                         }
                     </select>
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="submitTenantRemove" name="submitTenantRemove" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
         </div>
 
     </div>
 </div>
-
-<h3>Apartments</h3>
-<table class="table">
-    <thead>
-        <tr><td>Apartment Number</td><td># of Beds</td><td># of Baths</td><td>Tenants</td></tr>
-    </thead>
-    <tbody id="">
-        @foreach (var apt in ViewBag.Apartments)
-        {
-            <tr><td>@apt.ApartmentNum</td><td>@apt.Beds</td><td>@apt.Baths</td>
-                <td>
-                    @foreach (KeyValuePair<int,List<Tenant>> pair in ViewBag.Tenants)
-                    {
-                        foreach (var tenant in pair.Value)
-                        {
-                            if (apt.ApartmentID == tenant.ApartmentID)
-                            {
-                                <a href='@Url.Action("EditTenant", "Tenant")'> @tenant.Name </a>
-                            }
-                        }                    
-                    }
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
     $('#submitNewApt').click(function(){       
-        var obj = {
-            aptnum  : $("#aptnum").Val(),
-            bednum  : $("#bedNum").Val(),
-            bathnum: $("#bathNum").Val(),
-            pets: $("#pets").Val(),
-
-
+        var addApartment = {
+            aptnum : $("#aptNum").val(),
+            bednum  : $("#bedNum").val(),
+            bathnum : $("#bathNum").val(),
+            pets : ($("#pets").val() == 'on' ? "true" : "false"),
+            available: ($("#available").val() == 'on' ? "true" : "false"),
+            rent: $("#rent").val(),
+            location : '@ViewBag.Location.LocationID' 
         }
 
         $.ajax({
-            type:'Post',
-            url : '/Apartment/AddApartment',
-            data : JSON.stringify(obj),
-            dataType : "json",
+            type: 'POST',
+            url : '@Url.Action("AddApartment","Apartment")',
+            data : JSON.stringify(addApartment),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
             success : function (data){
                 console.log("Hardcore you added an apartment dude")           
+            }
+        });
+    })
+    $('#submitNewTenant').click(function () {
+        var addTenant = {
+            tenantApt  : $("#tenantApt").val(),
+            tenantName : $("#tenantName").val(),
+            tenantPhone: $("#tenantPhone").val(),
+            tenantEmail: $("#tenantEmail").val(),
+            location : '@ViewBag.Location.LocationID'
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("AddTenant","Tenant")',
+            data: JSON.stringify(addTenant),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                console.log("Hardcore you added a tenant")
+            }
+        });
+    })
+    $('#submitAptRemove').click(function () {
+        var removeApartment = {
+            aptID : $("#removeApt").val(),
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '@Url.Action("RemoveApartment","Apartment")',
+            data: JSON.stringify(removeApartment),
+            dataType: "json",
+            contentType: "application/json; charset=utf-8",
+            success: function (data) {
+                console.log("Hardcore you removed an apartment dude")
+            }
+        });
+    })
+    $('#submitTenantRemove').click(function () {
+        var removeTenant = {            
+            removeTen : $("#removeTenant").val()
+        }
+
+        $.ajax({
+            type: 'Post',
+            url: '/Tenant/RemoveTenant',
+            data: JSON.stringify(removeTenant),
+            dataType: "json",
+            success: function (data) {
+                console.log("Hardcore you added an apartment dude")
             }
         });
     })

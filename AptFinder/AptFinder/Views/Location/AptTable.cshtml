@@ -1,0 +1,30 @@
+﻿
+<h3>Apartments</h3>
+<table class="table" id="AptTableBody">
+    <thead>
+        <tr><td>Apartment Number</td><td># of Beds</td><td># of Baths</td><td>Availablity</td><td>Tenants</td>></tr>
+    </thead>
+    <tbody>
+        @foreach (var apt in ViewBag.Apartments)
+        {
+            <tr>
+                <td>@apt.ApartmentNum</td>
+                <td>@apt.Beds</td>
+                <td>@apt.Baths</td>
+                <td>@(apt.IsAvailable ? "Available" : "Unavailable") </td>
+                <td>
+                    @foreach (KeyValuePair<int, List<Tenant>> pair in ViewBag.Tenants)
+                    {
+                        foreach (var tenant in pair.Value)
+                        {
+                            if (apt.ApartmentID == tenant.ApartmentID)
+                            {
+                                <a href='@Url.Action("TenantProfile", "Tenant", new { id = tenant.TenantID })'> @tenant.Name </a>
+                            }
+                        }
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,52 @@
+﻿@{
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6 col-lg-6">
+        <h2>@ViewBag.Tenant.Name 's Profile</h2>
+        <h3>@ViewBag.Location.Name</h3>
+        <br />
+        <p>Apartment @ViewBag.Apartment.ApartmentNum</p>
+        <p>@ViewBag.Location.Street , @ViewBag.Location.City , @ViewBag.Location.State</p>
+        <br />
+        <p>Phone : @ViewBag.Tenant.Phone</p>
+        <p>Email : @ViewBag.Tenant.Email</p>
+        <br />
+        <p>Housemates:</p>
+        <ul>
+            @foreach (var mate in ViewBag.Housemates)
+            {
+                if (ViewBag.Tenant.Name != mate.Name)
+                {
+                    <li><a href='@Url.Action("TenantProfile","Tenant", new { id = mate.TenantID })'>@mate.Name</a></li>
+                }
+            }
+        </ul>
+    </div>
+    <div id="map" style="height:45VH" class="col-md-6 col-lg-6">        
+    </div>
+
+</div>
+<script>
+    function initMap() {
+        var myLatLng = { lat: @ViewBag.Location.Latitude , lng: @ViewBag.Location.Longitude };
+
+        // Create a map object and specify the DOM element for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: myLatLng,
+            scrollwheel: false,
+            zoom: 9
+        });
+
+        // Create a marker and set its position.
+        var marker = new google.maps.Marker({
+            map: map,
+            position: myLatLng,
+            title: '@ViewBag.Location.Name'
+        });
+    }
+</script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU-9q6heUHwYsxyvoA7VxzUa_aNsKzCDA&callback=initMap">
+</script>

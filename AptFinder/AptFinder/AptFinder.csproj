@@ -130,10 +130,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Abstract\IApartmentRepository.cs" />
+    <Compile Include="Abstract\IContext.cs" />
     <Compile Include="Abstract\ILandlordRepository.cs" />
     <Compile Include="Abstract\ITenantRepository.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Concrete\EFContext.cs" />
     <Compile Include="Concrete\EFLandlordRepository.cs" />
     <Compile Include="Concrete\EFTenantRepository.cs" />
     <Compile Include="Concrete\EFApartmentRepository.cs" />
@@ -198,6 +200,8 @@
     <Content Include="Views\SignIn.cshtml" />
     <Content Include="Views\Landlord\PopulateProfile.cshtml" />
     <Content Include="Views\Location\EditLocation.cshtml" />
+    <Content Include="Views\Tenant\TenantProfile.cshtml" />
+    <Content Include="Views\Location\AptTable.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -207,7 +211,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Tenant\" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201509081809174_InitCreate.resx">
