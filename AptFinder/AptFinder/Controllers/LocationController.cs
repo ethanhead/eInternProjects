@@ -14,15 +14,18 @@ namespace AptFinder.Controllers
         private ITenantRepository TRepo;
         private IApartmentRepository AptRepo;
         private ILandlordRepository LLRepo;
+        private IContext context;
 
         public int PageSize = 3;
 
-        public LocationController(ILandlordRepository ll, IApartmentRepository a, ILocationRepository lo, ITenantRepository t)
+        public LocationController(ILandlordRepository ll, IApartmentRepository a,
+            ILocationRepository lo, ITenantRepository t, IContext con)
         {
             TRepo = t;
             AptRepo = a;
             LocRepo = lo;
             LLRepo = ll;
+            context = con;
         }
 
         public ActionResult EditLocation(int id)
@@ -43,6 +46,41 @@ namespace AptFinder.Controllers
             return View();
         }
 
+        public void AddLocation(NewLocation loc)
+        {           
+            using (var entities = context.AptContext)
+            {
+                entities.Location.Add(
+                    new Location
+                    {
+                        LandlordID = loc.landID,
+                        Latitude = loc.lat, 
+                        Longitude = loc.lng, 
+                        Street = loc.Street, 
+                        City = loc.City,  
+                        State = loc.State,
+                        Zip = loc.Zip, 
+                        Name = loc.Name,
+                        Description = loc.Description 
+                    }
+                );
+
+                entities.SaveChanges();
+            }
+        }
+
+        public void RemoveLocation(LocationToRemove loc)
+        {
+            var LocEntity = LocRepo.Locations.Where(l => l.LocationID == loc.locID).First();
+
+            using (var entities = context.AptContext)
+            {
+                entities.Location.Attach(LocEntity);
+                entities.Location.Remove(LocEntity);
+                entities.SaveChanges();
+            }
+        }
+
         public ActionResult LocationSearch ()
         {
 
@@ -50,6 +88,24 @@ namespace AptFinder.Controllers
                 .OrderBy(p => p.Name)
                 .Skip((PageSize-3)*PageSize)
                 .Take(PageSize));
-        }
+        }       
+    }
+
+    public class NewLocation
+    {
+        public int landID { get; set; }
+        public float lat { get; set; }
+        public float lng { get; set; }
+        public String Street { get; set; }
+        public String City { get; set; }
+        public String State { get; set; }
+        public int Zip { get; set; }
+        public String Name { get; set; }
+        public String Description { get; set; }
+    }
+
+    public class LocationToRemove
+    {
+        public int locID { get; set; } 
     }
 }

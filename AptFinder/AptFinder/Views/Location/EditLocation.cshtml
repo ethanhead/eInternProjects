@@ -141,13 +141,13 @@
             </div>
             <div class="modal-body">
                 <div class="form-group">
-                    <label for="removeTenant">Apartment to Remove</label>
+                    <label for="removeTenant">Tenant to Remove</label>
                     <select class="form-control" id="removeTenant" name="removeTenant">
                         @foreach (KeyValuePair<int, List<Tenant>> pair in ViewBag.Tenants)
                         {
                             foreach (var tenant in pair.Value)
                             {
-                                <option> @tenant.Name</option>
+                                <option value="@tenant.TenantID"> @tenant.Name </option>
                             }
                         }
                     </select>
@@ -222,7 +222,7 @@
     })
     $('#submitTenantRemove').click(function () {
         var removeTenant = {            
-            removeTen : $("#removeTenant").val()
+            tenantID : $("#removeTenant").val()
         }
 
         $.ajax({

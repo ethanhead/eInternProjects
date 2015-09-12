@@ -59,6 +59,18 @@ namespace AptFinder.Controllers
                 entities.SaveChanges();
             }
         }
+
+        public void RemoveTenant(TenantToRemove tenant)
+        {
+            var tenantEntity = TRepo.Tenants.Where(t => t.TenantID == tenant.tenantID).First();
+
+            using (var entities = context.AptContext)
+            {
+                entities.Tenant.Attach(tenantEntity);
+                entities.Tenant.Remove(tenantEntity);
+                entities.SaveChanges();
+            }
+        }
     }
     public class newTenant
     {
@@ -70,6 +82,6 @@ namespace AptFinder.Controllers
     }
     public class TenantToRemove
     {
-        public int location { get; set; }
+        public int tenantID { get; set; }
     }
 }
