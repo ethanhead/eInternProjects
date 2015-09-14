@@ -3,8 +3,6 @@
 @{
     Layout = "~/Views/_Layout.cshtml";
 }
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 
 <h3>Edit @ViewBag.Location.Name</h3>
 
@@ -14,11 +12,41 @@
     <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#addTenModal">Add Tenant</button>
     <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#removeAptModal">Remove Apartment</button>
     <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#removeTenModal">Remove Tenant</button>
+    <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#importImageModal">Import Image</button>
+
+</div>
+<br />
+<div class="row">     
+       <!-- @foreach (var img in ViewBag.Images)
+        {
+            <img src='@Url.Content("~/photos/"+@img.LocationID)' />
+        }-->
+</div>
+<div class="row" id="partialViewContainer">
+    @Html.Partial("AptTable")
+</div>
+<div id="importImageModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Photo to @ViewBag.Location.Name</h4>
+            </div>
+            <div class="modal-body">
+                <form id="photoForm" action='@Url.Action("UploadImage", "Location", new { id = ViewBag.Location.LocationID } )' method="POST" enctype="multipart/form-data">
+                    <label for="photo">Photo:</label>
+                    <input type="file" name="photo" id="photo" />
+                    <input id="addImage" value="SubmitPhoto " type="submit" form="photoForm" class="btn btn-default"/>
+                </form>
+            </div>
+            <div class="modal-footer">
+              
+            </div>
+        </div>
+
+    </div>
 </div>
 
-<br />
-
-<!-- Add Apartment Modal -->
 <div id="addAptModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -77,7 +105,7 @@
                         <select class="form-control" id="tenantApt" name="tenantApt">
                             @foreach (var apt in ViewBag.Apartments)
                             {
-                                <option>@apt.ApartmentNum - @apt.Beds Beds - @apt.Baths Baths</option>
+                                <option value="@apt.ApartmentID">@apt.ApartmentNum - @apt.Beds Beds - @apt.Baths Baths</option>
                             }
                         </select>
                     </div>
@@ -124,7 +152,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="submitAptRemove"class="btn btn-default" data-dismiss="modal">Remove Apartment</button>
+                <button type="button" id="submitAptRemove" class="btn btn-default" data-dismiss="modal">Remove Apartment</button>
             </div>
         </div>
 
@@ -154,15 +182,19 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="submitTenantRemove" name="submitTenantRemove" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" id="submitTenantRemove" name="submitTenantRemove" class="btn btn-default" data-dismiss="modal">Remove Tenant</button>
             </div>
         </div>
 
     </div>
 </div>
+
+
+<!-- Add Apartment Modal -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>
-    $('#submitNewApt').click(function(){       
+
+    $('#submitNewApt').click(function(){
         var addApartment = {
             aptnum : $("#aptNum").val(),
             bednum  : $("#bedNum").val(),
@@ -170,7 +202,7 @@
             pets : ($("#pets").val() == 'on' ? "true" : "false"),
             available: ($("#available").val() == 'on' ? "true" : "false"),
             rent: $("#rent").val(),
-            location : '@ViewBag.Location.LocationID' 
+            location : '@ViewBag.Location.LocationID'
         }
 
         $.ajax({
@@ -180,9 +212,11 @@
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success : function (data){
-                console.log("Hardcore you added an apartment dude")           
+                console.log("Hardcore you added an apartment dude")
             }
         });
+
+        $("#partialViewContainer").load('@Url.Action("RefreshApartmentTable","Location", new { id = ViewBag.Location.LocationID })')
     })
     $('#submitNewTenant').click(function () {
         var addTenant = {
@@ -203,6 +237,8 @@
                 console.log("Hardcore you added a tenant")
             }
         });
+        $("#partialViewContainer").load('@Url.Action("RefreshApartmentTable","Location", new { id = ViewBag.Location.LocationID })')
+
     })
     $('#submitAptRemove').click(function () {
         var removeApartment = {
@@ -219,21 +255,26 @@
                 console.log("Hardcore you removed an apartment dude")
             }
         });
+
+        $("#partialViewContainer").load('@Url.Action("RefreshApartmentTable","Location", new { id = ViewBag.Location.LocationID })')
     })
     $('#submitTenantRemove').click(function () {
-        var removeTenant = {            
+        var removeTenant = {
             tenantID : $("#removeTenant").val()
         }
 
         $.ajax({
             type: 'Post',
-            url: '/Tenant/RemoveTenant',
+            url: '@Url.Action("RemoveTenant", "Tenant")',
             data: JSON.stringify(removeTenant),
             dataType: "json",
+            contentType: "application/json; charset=utf-8",
             success: function (data) {
                 console.log("Hardcore you added an apartment dude")
             }
         });
+
+        $("#partialViewContainer").load('@Url.Action("RefreshApartmentTable","Location", new { id = ViewBag.Location.LocationID })')
     })
 
 </script>

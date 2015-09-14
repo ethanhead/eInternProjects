@@ -138,7 +138,8 @@
 <div>
     <h3>@ViewBag.Landlord.Name 's Profile</h3>
     <div class="row">
-        <button id="" class="btn btn-default btn-md" data-toggle="modal" data-target="#addLocModal">Add Location</button>
+        <button id="addLocButton" class="btn btn-default btn-md" data-toggle="modal" data-target="#addLocModal">Add Location</button>
+        <button id="removeLocButton" class="btn btn-default btn-md" data-toggle="modal" data-target="#removeLocModal">Remove Location</button>
     </div>
     <table class="table">        
         <thead><tr><td>Location</td></tr></thead>
@@ -168,16 +169,8 @@
         var address = $("#street").val() + "," + $("#city").val() +
             "," + $("#state").val() + "," + $("#zip").val()
 
-        var latitude;
-        var longitude;
-
-        geocoder.geocode({ 'address': address }, function (results, status) {
-            if (status == google.maps.GeocoderStatus.OK) {
-                latitude = results[0].geometry.location
-            } else {
-                alert("Your address could not be found for the following reason: " + status);
-            }                
-        })
+        var latitude = 0;
+        var longitude = 0;
 
         var addLocation = {
             name: $("#name").val(),
@@ -203,11 +196,11 @@
         });
     })
 
-    $('#RemoveLoc').click(function () {
+    $('#removeLoc').click(function () {
         var addLocation = {
             locID: $("#remLocation").val(),
         }
-
+       
         $.ajax({
             type: 'POST',
             url: '@Url.Action("RemoveLocation","Location")',

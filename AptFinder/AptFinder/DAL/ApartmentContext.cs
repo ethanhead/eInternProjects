@@ -13,5 +13,6 @@ namespace AptFinder.DAL
         public DbSet<Landlord> Landlord { get; set; }
         public DbSet<Location> Location { get; set; }
         public DbSet<Tenant> Tenant { get; set; }
+        public DbSet<Image> Image { get; set; }
     }
 }

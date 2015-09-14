@@ -1,24 +1,10 @@
 To-Do and Distribution of Work
 
+3:00PM to 4:30PM Refreshing Partial Views
+4:30PM to 6:00PM Authorization and Authentication / SignIn and Registration
+7:00PM to 8PM UI and Cleaning up the Front-end
+9PM to 10PM Photo Carousel and upload
+The remainer of the evening
+Debugging Everything
 
-1. Dynamically Adding, Removing, and Updating Apartments,Locations, and Tenants
-2. Tenant Profile
-3. Proper Routing
-4. Search Filters 
-5. Authorization and Authentication / SignIn and Registration
-6. UI and Cleaning up the Front-end
-7. Photo Carousel and upload
-
-- Distribution of Work -
-
-Remainder of Thursday:
-1 and 2
-
-Friday:
-1,2,and3
-
-Saturday:
-4 and 5
-
-Sunday:
-6 and 7 
+Geolocation

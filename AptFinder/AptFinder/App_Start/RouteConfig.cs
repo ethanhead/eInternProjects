@@ -16,7 +16,7 @@ namespace AptFinder
             routes.MapRoute(
                 name: "LocationPage",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Location", action = "LocationSearch", id = UrlParameter.Optional }
+                defaults: new { controller = "Main", action = "MainPage", id = UrlParameter.Optional }
             );
         }
     }

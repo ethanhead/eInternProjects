@@ -34,6 +34,7 @@ namespace AptFinder.Infrastructure
             kernel.Bind<ILandlordRepository>().To<EFLandlordRepository>();
             kernel.Bind<ITenantRepository>().To<EFTenantRepository>();
             kernel.Bind<IContext>().To<EFContext>();
+            kernel.Bind<IImageRepository>().To<EFImageRepository>();
         }
     }
 }
