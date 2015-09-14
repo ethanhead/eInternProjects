@@ -39,27 +39,25 @@ namespace AptFinder.Controllers
             var Landlord = LLRepo.Landlords.Where(l => l.LandlordID == Location.LandlordID).First();  
 
             HttpPostedFileBase photo = Request.Files["photo"];
-            
-            string directory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"photos");
-            string locationDirectory = Path.Combine(directory, id.ToString());
+
+            string localDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"Assets/photos",id.ToString());
             //If directory does not exist...
-            if (!Directory.Exists(locationDirectory))
+            if (!Directory.Exists(localDirectory))
             {
-                Directory.CreateDirectory(locationDirectory);
+                Directory.CreateDirectory(localDirectory);
             }
             
 
             if (photo != null && photo.ContentLength > 0)
             {
-                var fileName = Path.GetFileName(photo.FileName);
-                string imagePath = Path.Combine(locationDirectory, fileName);
+                var fileName = Path.GetFileName(photo.FileName);               
 
                 using (var entities = context.AptContext)
                 {
                     entities.Image.Add(
                         new Image
                         {
-                            ImagePath = imagePath,
+                            ImagePath = fileName,
                             LandlordID = Landlord.LandlordID,
                             LocationID = Location.LocationID
                         }
@@ -67,7 +65,8 @@ namespace AptFinder.Controllers
 
                     entities.SaveChanges();
                 }                
-                photo.SaveAs(imagePath);
+                var localPath = Path.Combine(localDirectory, fileName);
+                photo.SaveAs(localPath);
 
             }           
         }
@@ -84,8 +83,9 @@ namespace AptFinder.Controllers
             }
 
             ViewBag.Apartments = apts;
-            ViewBag.Location = LocRepo.Locations.Where(l => l.LocationID == id).First();
-            ViewBag.Landlord = LLRepo.Landlords.Where(ll => ll.LandlordID == id).First();
+            var loc = LocRepo.Locations.Where(l => l.LocationID == id).First();
+            ViewBag.Location = loc;
+            ViewBag.Landlord = LLRepo.Landlords.Where(ll => ll.LandlordID == loc.LandlordID).First();
             ViewBag.Images = imageRepo.Images.Where(i => i.LocationID == id);
             ViewBag.Tenants = Tenants;
            
@@ -104,8 +104,11 @@ namespace AptFinder.Controllers
             }
 
             ViewBag.Apartments = apts;
-            ViewBag.Location = LocRepo.Locations.Where(l => l.LocationID == id).First();
-            ViewBag.Landlord = LLRepo.Landlords.Where(ll => ll.LandlordID == id).First();
+            var loc = LocRepo.Locations.Where(l => l.LocationID == id).First();
+
+            ViewBag.Location = loc; 
+
+            ViewBag.Landlord = LLRepo.Landlords.Where(ll => ll.LandlordID == loc.LandlordID).First();
             ViewBag.Tenants = Tenants;
             return PartialView("AptTable");
         }

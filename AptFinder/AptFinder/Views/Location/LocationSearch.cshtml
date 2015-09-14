@@ -4,20 +4,27 @@
 @{ 
     Layout = "~/Views/_Layout.cshtml";
 }
+<style>
+    .AptItem {
+        margin: 5px;
+        padding:10px;
+        background-color: rgba(255,255,255,.5);
+        border-radius : 10px;
+    }
+</style>
 <div class="row">
-    <div class="col-md-5 col-lg-5">
+    <div class="col-md-6 col-lg-6">
         @foreach (var l in Model)
         {
             <a href="@Url.Action("ApartmentPage", "Apartment", new { id = l.LocationID })">
-                <div class="row">
+                <div class="row AptItem">
                     <h3>@l.Name</h3>
                     <h4>@l.Street, @l.City, @l.State, @l.Zip</h4>
                 </div>
             </a>
-            <hr />
         }
     </div>
-    <div class="col-lg-7 col-md-7">
+    <div class="col-lg-6 col-md-6">
         Here is where the map goes
     </div>
 </div>

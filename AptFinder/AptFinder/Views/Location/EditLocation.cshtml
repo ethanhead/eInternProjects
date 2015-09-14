@@ -1,10 +1,16 @@
 ﻿@using AptFinder.Models
 @using System.Linq
+@using System.IO;
 @{
     Layout = "~/Views/_Layout.cshtml";
 }
 
 <h3>Edit @ViewBag.Location.Name</h3>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<link rel="stylesheet" href="~/Assets/slick/slick.css">
+<link rel="stylesheet" href="~/Assets/slick/slick-theme.css">
+<script type="text/javascript" src="//cdn.jsdelivr.net/jquery.slick/1.5.7/slick.min.js"></script>
 
 <!-- Modal Triggers -->
 <div class="row">
@@ -13,18 +19,31 @@
     <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#removeAptModal">Remove Apartment</button>
     <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#removeTenModal">Remove Tenant</button>
     <button type="button" class="btn btn-default btn-md" data-toggle="modal" data-target="#importImageModal">Import Image</button>
-
 </div>
 <br />
-<div class="row">     
-       <!-- @foreach (var img in ViewBag.Images)
+<style>
+    img{
+        width:inherit;
+    }
+
+    .slickContainer {
+        width:400px;
+        margin : 0 auto;
+    }
+</style>
+    
+    <div class="slickContainer">
+        @foreach (var img in ViewBag.Images)
         {
-            <img src='@Url.Content("~/photos/"+@img.LocationID)' />
-        }-->
-</div>
+            <img src='@Path.Combine("/Assets/photos/",img.LocationID.ToString(),img.ImagePath)' />
+        }
+    </div>
+
+
 <div class="row" id="partialViewContainer">
     @Html.Partial("AptTable")
 </div>
+
 <div id="importImageModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -43,7 +62,6 @@
               
             </div>
         </div>
-
     </div>
 </div>
 
@@ -82,6 +100,7 @@
                     </div>
                 </form>
             </div>
+
             <div class="modal-footer">
                 <button id="submitNewApt" type="button" class="btn btn-default" data-dismiss="modal">Submit New Apartment</button>
             </div>
@@ -185,11 +204,17 @@
                 <button type="button" id="submitTenantRemove" name="submitTenantRemove" class="btn btn-default" data-dismiss="modal">Remove Tenant</button>
             </div>
         </div>
-
     </div>
 </div>
 
-
+<script>
+    $(document).ready(function () {
+        $(".slickContainer").slick({
+            dots: true,
+            arrows : true,
+        })
+    })
+</script>
 <!-- Add Apartment Modal -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script>

@@ -165,13 +165,6 @@
 
     $('#submitNewLoc').click(function () {
 
-        var geocoder = new google.maps.Geocoder();
-        var address = $("#street").val() + "," + $("#city").val() +
-            "," + $("#state").val() + "," + $("#zip").val()
-
-        var latitude = 0;
-        var longitude = 0;
-
         var addLocation = {
             name: $("#name").val(),
             lat: latitude,

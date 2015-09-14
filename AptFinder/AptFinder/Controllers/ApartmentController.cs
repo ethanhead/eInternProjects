@@ -17,19 +17,22 @@ namespace AptFinder.Controllers
         private IApartmentRepository AptRepo;
         private ILocationRepository LocRepo;
         private IContext context;
+        private IImageRepository imageRepo;
 
-        public ApartmentController(IApartmentRepository aRepo, ILocationRepository lRepo, IContext con)
+        public ApartmentController(IApartmentRepository aRepo, ILocationRepository lRepo, IContext con, IImageRepository img)
         {
             AptRepo = aRepo;
             LocRepo = lRepo;
             context = con;
+            imageRepo = img;
         }
         
         public ActionResult ApartmentPage(int id)
         {
-            ViewBag.thisLocation = LocRepo.Locations.Where(l => l.LocationID == id).First();
+            var thisLocation = LocRepo.Locations.Where(l => l.LocationID == id).First();
             var apartmentsAtLoc = AptRepo.Apartments.Where(a => a.LocationID == id);
-
+            ViewBag.Images = imageRepo.Images.Where(i => i.LocationID == id);
+            ViewBag.Location = thisLocation;
             ViewBag.maxRent = apartmentsAtLoc.Select(i=>i.Rent).Max();
             ViewBag.minRent = apartmentsAtLoc.Select(i => i.Rent).Min();            
             ViewBag.apartments = apartmentsAtLoc;          

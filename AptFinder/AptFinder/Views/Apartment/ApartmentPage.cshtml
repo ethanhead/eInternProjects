@@ -1,29 +1,35 @@
 ﻿@{
     Layout = "~/Views/_Layout.cshtml";
-    var AptLocation = ViewBag.thisLocation;
+    var AptLocation = ViewBag.Location;
     var Apartments = ViewBag.apartments;
 }
 <div class="row">
-    <div class="col-md-6 col-lg-6">
-        Photo Carousal
-    </div>
-    <div class="col-md-6 col-lg-6">
-        <div id="map" style="height: 300px; border-radius:25px">
 
-        </div>
-    </div>
-    
-</div>
-<hr />
-<div class="row">    
-        
     <div class="col-md-8 col-lg-8">
-        <h3>@AptLocation.Name</h3>        
+        <h3>@AptLocation.Name</h3>
         <p>@AptLocation.Street, @AptLocation.City, @AptLocation.State, @AptLocation.Zip</p>
     </div>
     <div class="col-md-4 col-lg-4">
         <h3>$@ViewBag.minRent - $@ViewBag.maxRent</h3>
     </div>
+</div>
+<hr />
+
+<div class="row">
+    <div class="col-md-6 col-lg-6">
+        <div class="slickContainer">
+            @foreach (var img in ViewBag.Images)
+            {
+                <img src='@Path.Combine("/Assets/photos/",img.LocationID.ToString(),img.ImagePath)' />
+            }
+        </div>
+    </div>
+    <div class="col-md-6 col-lg-6">
+        <div id="map" style="height: 350px;">
+
+        </div>
+    </div>
+    
 </div>
 <hr />
 <div class="row">
@@ -68,4 +74,12 @@ function initMap() {
 </script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU-9q6heUHwYsxyvoA7VxzUa_aNsKzCDA&callback=initMap">
+</script>
+<script>
+    $(document).ready(function () {
+        $(".slickContainer").slick({
+            dots: true,
+            arrows : true,
+        })
+    })
 </script>
