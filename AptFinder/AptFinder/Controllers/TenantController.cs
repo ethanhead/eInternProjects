@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using AptFinder.Abstract;
 using AptFinder.Models;
+using AptFinder.ViewModels;
 
 namespace AptFinder.Controllers
 {
@@ -29,16 +30,18 @@ namespace AptFinder.Controllers
 
         public ActionResult TenantProfile(int id)
         {
+            TenantProfileVM viewModel = new TenantProfileVM();
+
             var tenant = TRepo.Tenants.Where(t => t.TenantID == id).First();
             var location = LocRepo.Locations.Where(l => l.LocationID == tenant.LocationID).First();            
 
-            ViewBag.Apartment = AptRepo.Apartments.Where(a => a.ApartmentID == tenant.ApartmentID).First();
-            ViewBag.Landlord = LLRepo.Landlords.Where(ll => ll.LandlordID == location.LandlordID).First();
-            ViewBag.Housemates = TRepo.Tenants.Where(t => t.ApartmentID == tenant.ApartmentID);
-            ViewBag.Tenant = tenant;
-            ViewBag.Location = location;
-
-            return View();
+            viewModel.apartment = AptRepo.Apartments.Where(a => a.ApartmentID == tenant.ApartmentID).First();
+            viewModel.landlord = LLRepo.Landlords.Where(ll => ll.LandlordID == location.LandlordID).First();
+            viewModel.housemates = TRepo.Tenants.Where(t => t.ApartmentID == tenant.ApartmentID);
+            viewModel.tenant = tenant;
+            viewModel.location = location;
+    
+            return View(viewModel);
         }
 
         public void AddTenant(newTenant tenant)

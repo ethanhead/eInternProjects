@@ -1,23 +1,25 @@
-﻿@{
+﻿@using AptFinder.ViewModels
+@model TenantProfileVM
+@{
     Layout = "~/Views/_Layout.cshtml";
 }
 
 <div class="row">
     <div class="col-md-6 col-lg-6">
-        <h2>@ViewBag.Tenant.Name 's Profile</h2>
-        <h3>@ViewBag.Location.Name</h3>
+        <h2>@Model.tenant.Name's Profile</h2>
+        <h3>@Model.location.Name</h3>
         <br />
-        <p>Apartment @ViewBag.Apartment.ApartmentNum</p>
-        <p>@ViewBag.Location.Street , @ViewBag.Location.City , @ViewBag.Location.State</p>
+        <p>Apartment @Model.apartment.ApartmentNum</p>
+        <p>@Model.location.Street, @Model.location.City, @Model.location.State, @Model.location.Zip</p>
         <br />
-        <p>Phone : @ViewBag.Tenant.Phone</p>
-        <p>Email : @ViewBag.Tenant.Email</p>
+        <p>Phone : @Model.tenant.Phone</p>
+        <p>Email : @Model.tenant.Email</p>
         <br />
         <p>Housemates:</p>
         <ul>
-            @foreach (var mate in ViewBag.Housemates)
+            @foreach (var mate in Model.housemates)
             {
-                if (ViewBag.Tenant.Name != mate.Name)
+                if (Model.tenant.Name != mate.Name)
                 {
                     <li><a href='@Url.Action("TenantProfile","Tenant", new { id = mate.TenantID })'>@mate.Name</a></li>
                 }
@@ -30,7 +32,7 @@
 </div>
 <script>
     function initMap() {
-        var myLatLng = { lat: @ViewBag.Location.Latitude , lng: @ViewBag.Location.Longitude };
+        var myLatLng = { lat: @Model.location.Latitude , lng: @Model.location.Longitude };
 
         // Create a map object and specify the DOM element for display.
         var map = new google.maps.Map(document.getElementById('map'), {
@@ -43,7 +45,7 @@
         var marker = new google.maps.Marker({
             map: map,
             position: myLatLng,
-            title: '@ViewBag.Location.Name'
+            title: '@Model.location.Name'
         });
     }
 </script>

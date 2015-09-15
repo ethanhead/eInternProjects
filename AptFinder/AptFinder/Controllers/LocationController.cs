@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using AptFinder.Abstract;
 using AptFinder.Models;
 using System.IO;
+using AptFinder.ViewModels;
 
 namespace AptFinder.Controllers
 {
@@ -71,8 +72,27 @@ namespace AptFinder.Controllers
             }           
         }
 
+
+        public ActionResult LocationSearch(searchResults results)
+        {
+            var filteredLocs =
+                from loc in LocRepo.Locations
+                join apt in AptRepo.Apartments on loc.LocationID equals apt.LocationID
+                where loc.City.Contains(results.City) &&
+                            loc.State.Contains(results.State) &&
+                            results.Beds == (apt.Beds > 4 ? 4 : apt.Beds) &&
+                            results.Beds == (apt.Baths > 3 ? 3 : apt.Baths) &&
+                            apt.Rent >= results.minRent &&
+                            apt.Rent <= results.maxRent &&
+                            apt.IsAvailable
+                select loc;            
+
+            return View(filteredLocs.Distinct());
+        }
+
         public ActionResult EditLocation(int id)
         {
+            EditLocationVM viewModel = new EditLocationVM();
 
             var apts = AptRepo.Apartments.Where(a => a.LocationID == id);
             Dictionary<int, List<Tenant>> Tenants = new Dictionary<int, List<Tenant>>();
@@ -82,19 +102,21 @@ namespace AptFinder.Controllers
                 Tenants.Add(a.ApartmentID, TRepo.Tenants.Where(t => t.ApartmentID == a.ApartmentID).ToList());
             }
 
-            ViewBag.Apartments = apts;
+            viewModel.apartments = apts;
             var loc = LocRepo.Locations.Where(l => l.LocationID == id).First();
-            ViewBag.Location = loc;
-            ViewBag.Landlord = LLRepo.Landlords.Where(ll => ll.LandlordID == loc.LandlordID).First();
-            ViewBag.Images = imageRepo.Images.Where(i => i.LocationID == id);
-            ViewBag.Tenants = Tenants;
-           
-
-            return View();
+            viewModel.location = loc;
+            var landlord = LLRepo.Landlords.Where(ll => ll.LandlordID == loc.LandlordID).First();
+            viewModel.images = imageRepo.Images.Where(i => i.LocationID == id);
+            viewModel.tenants = Tenants;
+            viewModel.landlord = landlord;
+            
+            return View(viewModel);
         }
 
         public ActionResult RefreshApartmentTable(int id)
         {
+            EditLocationVM viewModel = new EditLocationVM();
+
             var apts = AptRepo.Apartments.Where(a => a.LocationID == id);
             Dictionary<int, List<Tenant>> Tenants = new Dictionary<int, List<Tenant>>();
 
@@ -103,14 +125,14 @@ namespace AptFinder.Controllers
                 Tenants.Add(a.ApartmentID, TRepo.Tenants.Where(t => t.ApartmentID == a.ApartmentID).ToList());
             }
 
-            ViewBag.Apartments = apts;
+            viewModel.apartments = apts;
             var loc = LocRepo.Locations.Where(l => l.LocationID == id).First();
 
-            ViewBag.Location = loc; 
+            viewModel.location = loc; 
 
-            ViewBag.Landlord = LLRepo.Landlords.Where(ll => ll.LandlordID == loc.LandlordID).First();
-            ViewBag.Tenants = Tenants;
-            return PartialView("AptTable");
+            viewModel.landlord = LLRepo.Landlords.Where(ll => ll.LandlordID == loc.LandlordID).First();
+            viewModel.tenants = Tenants;
+            return PartialView("AptTable",viewModel);
         }
 
         public void AddLocation(NewLocation loc)
@@ -157,27 +179,7 @@ namespace AptFinder.Controllers
                 entities.Location.Remove(LocEntity);
                 entities.SaveChanges();
             }
-        }
-
- 
-        public ActionResult LocationSearch (searchResults results)
-        {
-
-            var filteredLocs =
-                from loc in LocRepo.Locations
-                join apt in AptRepo.Apartments on loc.LocationID equals apt.LocationID
-                where loc.City.Contains(results.City) &&
-                            loc.State.Contains(results.State) &&
-                            results.Beds == (apt.Beds > 4 ? 4 : apt.Beds) &&
-                            results.Beds == (apt.Baths > 3 ? 3 : apt.Baths) &&
-                            apt.Rent >= results.minRent &&
-                            apt.Rent <= results.maxRent
-                select loc;
-
-            
-
-            return View(filteredLocs.Distinct());
-        }       
+        }   
     }
 
     public class searchResults

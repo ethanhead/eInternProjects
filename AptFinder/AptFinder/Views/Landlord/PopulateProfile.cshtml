@@ -6,7 +6,6 @@
 }
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <style>
     td {text-align: center}
 </style>
@@ -105,7 +104,6 @@
                 <button id="submitNewLoc" type="button" class="btn btn-default" data-dismiss="modal">Submit New Location</button>
             </div>
         </div>
-
     </div>
 </div>
 <div id="removeLocModal" class="modal fade" role="dialog">
@@ -156,55 +154,75 @@
         </tbody>
     </table>
 </div>
-
-<script async defer
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBU-9q6heUHwYsxyvoA7VxzUa_aNsKzCDA&callback=initMap">
-</script>
 <script>
 
 
     $('#submitNewLoc').click(function () {
 
-        var addLocation = {
-            name: $("#name").val(),
-            lat: latitude,
-            lng: longitude,
-            street : $("#street").val(),
-            city : $("#city").val(),
-            state : $("#state").val(),
-            zip: $("#zip").val(),
-            landID: '@ViewBag.Landlord.LandlordID',
-            description : $("#description").val()
-        }
+        var addressString = "";
+        var streetArray = $("#street").val().split(" ")
+        var cityArray = $("#city").val().split(" ")
 
-        $.ajax({
-            type: 'POST',
-            url: '@Url.Action("AddLocation","Location")',
-            data: JSON.stringify(addLocation),
-            dataType: "json",
-            contentType: "application/json; charset=utf-8",
-            success: function (data) {
-                console.log("Hardcore you added a location")
+        for (var i = 0; i < streetArray.length; i++) {
+            if (i < streetArray.length-1) {
+                addressString += streetArray[i] + "+"
+            } else {
+                addressString += streetArray[i] + ",+"
             }
-        });
+        }
+        for (var i = 0; i < cityArray.length; i++) {
+            if (i < cityArray.length-1) {
+                addressString += cityArray[i] + "+"
+            } else {
+                addressString += cityArray[i] + ",+"
+            }
+        }
+        addressString += $("#state").val()
+
+        var GeocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + addressString + '&key=AIzaSyD7CRAmZe5P0R1v209m9bKif_CDGDy986o'
+
+        $.getJSON(GeocodeUrl, function (data) {
+
+            var addLocation = {
+                name: $("#name").val(),
+                street: $("#street").val(),
+                lat : data.results[0].geometry.location.lat,
+                lng : data.results[0].geometry.location.lng,
+                city: $("#city").val(),
+                state: $("#state").val(),
+                zip: $("#zip").val(),
+                landID: '@ViewBag.Landlord.LandlordID',
+                description: $("#description").val()
+            }
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("AddLocation","Location")',
+                data: JSON.stringify(addLocation),
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                success: function (data) {
+                    console.log("Hardcore you added a location")
+                }
+            })
+        })        
     })
 
     $('#removeLoc').click(function () {
-        var addLocation = {
-            locID: $("#remLocation").val(),
+        var remLocation = {
+            locID: $("#remLocation").val()
         }
-       
+
         $.ajax({
             type: 'POST',
             url: '@Url.Action("RemoveLocation","Location")',
-            data: JSON.stringify(addLocation),
+            data: JSON.stringify(remLocation),
             dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
                 console.log("Hardcore you removed a location")
             }
-        });
+        })
     })
 
-    
+
 </script>

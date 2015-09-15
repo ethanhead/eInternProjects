@@ -1,4 +1,6 @@
 ﻿@using AptFinder.Models
+@using AptFinder.ViewModels
+@model EditLocationVM
 
 <h3>Apartments</h3>
 <table class="table" id="AptTableBody">
@@ -6,7 +8,7 @@
         <tr><td>Apartment Number</td><td># of Beds</td><td># of Baths</td><td>Availablity</td><td>Tenants</td></tr>
     </thead>
     <tbody>
-        @foreach (var apt in ViewBag.Apartments)
+        @foreach (var apt in Model.apartments)
         {
             <tr>
                 <td>@apt.ApartmentNum</td>
@@ -14,7 +16,7 @@
                 <td>@apt.Baths</td>
                 <td>@(apt.IsAvailable ? "Available" : "Unavailable") </td>
                 <td>
-                    @foreach (KeyValuePair<int, List<Tenant>> pair in ViewBag.Tenants)
+                    @foreach (KeyValuePair<int, List<Tenant>> pair in Model.tenants)
                     {
                         foreach (var tenant in pair.Value)
                         {

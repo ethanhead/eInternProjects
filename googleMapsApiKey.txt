@@ -1,3 +1,7 @@
 THIS IS YOUR GOOGLE MAPS API KEY - DO NOT LOSE THIS!!
 
 AIzaSyBU-9q6heUHwYsxyvoA7VxzUa_aNsKzCDA
+
+
+Google Geolocation API Key:
+AIzaSyD7CRAmZe5P0R1v209m9bKif_CDGDy986o

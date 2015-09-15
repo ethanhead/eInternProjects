@@ -5,8 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using AptFinder.Abstract;
 using AptFinder.Models;
-using AptFinder.Concrete;
-using AptFinder.DAL;
+using AptFinder.ViewModels;
 
 namespace AptFinder.Controllers
 {
@@ -29,15 +28,18 @@ namespace AptFinder.Controllers
         
         public ActionResult ApartmentPage(int id)
         {
+
+            ApartmentPageVM viewModel = new ApartmentPageVM();
+            
             var thisLocation = LocRepo.Locations.Where(l => l.LocationID == id).First();
             var apartmentsAtLoc = AptRepo.Apartments.Where(a => a.LocationID == id);
-            ViewBag.Images = imageRepo.Images.Where(i => i.LocationID == id);
-            ViewBag.Location = thisLocation;
-            ViewBag.maxRent = apartmentsAtLoc.Select(i=>i.Rent).Max();
-            ViewBag.minRent = apartmentsAtLoc.Select(i => i.Rent).Min();            
-            ViewBag.apartments = apartmentsAtLoc;          
+            viewModel.images = imageRepo.Images.Where(i => i.LocationID == id);
+            viewModel.location = thisLocation;
+            viewModel.maxRent = apartmentsAtLoc.Select(i=>i.Rent).Max();
+            viewModel.minRent = apartmentsAtLoc.Select(i => i.Rent).Min();            
+            viewModel.apartments = apartmentsAtLoc;          
 
-            return View();
+            return View(viewModel);
         }       
 
         [HttpPost]
@@ -57,7 +59,7 @@ namespace AptFinder.Controllers
                         LocationID = Apt.location                        
                     }                 
                 );
-                
+                                
                 entities.SaveChanges();      
             } 
         }

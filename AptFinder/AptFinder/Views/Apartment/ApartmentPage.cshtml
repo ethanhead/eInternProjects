@@ -1,16 +1,17 @@
-﻿@{
+﻿@using AptFinder.ViewModels
+@model ApartmentPageVM
+
+@{
     Layout = "~/Views/_Layout.cshtml";
-    var AptLocation = ViewBag.Location;
-    var Apartments = ViewBag.apartments;
 }
 <div class="row">
 
     <div class="col-md-8 col-lg-8">
-        <h3>@AptLocation.Name</h3>
-        <p>@AptLocation.Street, @AptLocation.City, @AptLocation.State, @AptLocation.Zip</p>
+        <h3>@Model.location.Name</h3>
+        <p>@Model.location.Street, @Model.location.City, @Model.location.State, @Model.location.Zip</p>
     </div>
     <div class="col-md-4 col-lg-4">
-        <h3>$@ViewBag.minRent - $@ViewBag.maxRent</h3>
+        <h3>$@(Model.maxRent == Model.minRent ? Model.minRent + "-" + Model.maxRent)</h3>
     </div>
 </div>
 <hr />
@@ -18,7 +19,7 @@
 <div class="row">
     <div class="col-md-6 col-lg-6">
         <div class="slickContainer">
-            @foreach (var img in ViewBag.Images)
+            @foreach (var img in Model.images)
             {
                 <img src='@Path.Combine("/Assets/photos/",img.LocationID.ToString(),img.ImagePath)' />
             }
@@ -36,7 +37,7 @@
     <h3>Available Units</h3>
     <table class="table">
         <tr><td>Beds</td><td>Baths</td><td>Pets Alowed</td><td>Rent</td><td></td></tr>
-        @foreach (var apt in Apartments)
+        @foreach (var apt in Model.apartments)
         {
             <tr><td>@apt.Beds</td><td>@apt.Baths</td><td>@(apt.IsPetFriendly ? "Yes" : "No")</td>
                 <td>$@apt.Rent</td><td><a href='@Url.Action("RequestApartment","Apartment")' class="btn btn-default btn-sm">Request this Apartment</a></td></tr>
@@ -49,7 +50,7 @@
 <hr />
 <div class="row">
     <h3>About this location:</h3>
-    @(AptLocation.Description != null ? AptLocation.Description : "This Location has no Description")
+    @(Model.location.Description != null ? Model.location.Description : "This Location has no Description")
     <br />
     <br />
     <br />
@@ -59,7 +60,7 @@
 var map;
 function initMap() {
 
-    var myLatLng = {lat: @AptLocation.Latitude, lng: @AptLocation.Longitude}
+    var myLatLng = {lat: @Model.location.Latitude, lng: @Model.location.Longitude}
     map = new google.maps.Map(document.getElementById('map'), {
         center: myLatLng,
         zoom: 8

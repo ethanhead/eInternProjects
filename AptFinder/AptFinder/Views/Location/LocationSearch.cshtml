@@ -14,12 +14,12 @@
 </style>
 <div class="row">
     <div class="col-md-6 col-lg-6">
-        @foreach (var l in Model)
+        @foreach (var loc in Model)
         {
-            <a href="@Url.Action("ApartmentPage", "Apartment", new { id = l.LocationID })">
+            <a href="@Url.Action("ApartmentPage", "Apartment", new { id = loc.LocationID })">
                 <div class="row AptItem">
-                    <h3>@l.Name</h3>
-                    <h4>@l.Street, @l.City, @l.State, @l.Zip</h4>
+                    <h3>@loc.Name</h3>
+                    <h4>@loc.Street, @loc.City, @loc.State, @loc.Zip</h4>
                 </div>
             </a>
         }
