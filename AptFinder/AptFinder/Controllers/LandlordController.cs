@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using AptFinder.Abstract;
 using AptFinder.Models;
+using AptFinder.ViewModels;
 
 namespace AptFinder.Controllers
 {
@@ -23,19 +24,26 @@ namespace AptFinder.Controllers
             LLRepo = ll;
         }
 
-        public ActionResult PopulateTenantTable()
-        {
-            return View();
-        }
-
         public ActionResult PopulateProfile(int id)
         {
-            var LLlocations = LocRepo.Locations.Where(l => l.LandlordID == id);
 
-            ViewBag.Locations = LLlocations;
-            ViewBag.Landlord  = LLRepo.Landlords.Where( ll => ll.LandlordID == id).First();
+            PopulateProfileVM viewModel = new PopulateProfileVM();
 
-            return View();
+            viewModel.locations = LocRepo.Locations.Where(l => l.LandlordID == id);
+            viewModel.landlord = LLRepo.Landlords.Where( ll => ll.LandlordID == id).First();
+
+            return View(viewModel);
+        }
+
+        public ActionResult LocationTable(int id)
+        {
+
+            PopulateProfileVM viewModel = new PopulateProfileVM();
+
+            viewModel.locations = LocRepo.Locations.Where(l => l.LandlordID == id);
+            viewModel.landlord = LLRepo.Landlords.Where(ll => ll.LandlordID == id).First();
+
+            return PartialView(viewModel);
         }
     }
 }

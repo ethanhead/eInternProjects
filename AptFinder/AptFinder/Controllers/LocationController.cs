@@ -113,7 +113,7 @@ namespace AptFinder.Controllers
             return View(viewModel);
         }
 
-        public ActionResult RefreshApartmentTable(int id)
+        public ActionResult ApartmentTable(int id)
         {
             EditLocationVM viewModel = new EditLocationVM();
 

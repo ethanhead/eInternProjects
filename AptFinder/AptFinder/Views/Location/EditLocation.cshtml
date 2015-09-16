@@ -7,7 +7,7 @@
     Layout = "~/Views/_Layout.cshtml";
 }
 
-<h3>Edit @Model.location.LocationID</h3>
+<h3>Edit @Model.location.Name</h3>
 <p>@Model.location.Street, @Model.location.City, @Model.location.State, @Model.location.Zip</p>
 <br />
 
@@ -44,8 +44,36 @@
     </div>
 
 
-<div class="row" id="partialViewContainer">
-    @Html.Partial("AptTable")
+<div class="row">
+    <h3>Apartments</h3>
+    <table class="table" id="AptTableBody">
+        <thead>
+            <tr><td>Apartment Number</td><td># of Beds</td><td># of Baths</td><td>Availablity</td><td>Tenants</td></tr>
+        </thead>
+        <tbody>
+            @foreach (var apt in Model.apartments)
+            {
+                <tr>
+                    <td>@apt.ApartmentNum</td>
+                    <td>@apt.Beds</td>
+                    <td>@apt.Baths</td>
+                    <td>@(apt.IsAvailable ? "Available" : "Unavailable") </td>
+                    <td>
+                        @foreach (KeyValuePair<int, List<Tenant>> pair in Model.tenants)
+                        {
+                            foreach (var tenant in pair.Value)
+                            {
+                                if (apt.ApartmentID == tenant.ApartmentID)
+                                {
+                                    <a href='@Url.Action("TenantProfile", "Tenant", new { id = tenant.TenantID })'> @tenant.Name </a>
+                                }
+                            }
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
 <div id="importImageModal" class="modal fade" role="dialog">
@@ -147,7 +175,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="submitNewTenant" class="btn btn-default" data-dismiss="modal">Submit New Tenant</button>
+                <button type="button" id="submitNewTenant" class="btn btn-default">Submit New Tenant</button>
             </div>
         </div>
 
@@ -175,7 +203,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" id="submitAptRemove" class="btn btn-default" data-dismiss="modal">Remove Apartment</button>
+                <button type="button" id="submitAptRemove" class="btn btn-default">Remove Apartment</button>
             </div>
         </div>
 
@@ -205,7 +233,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="submitTenantRemove" name="submitTenantRemove" class="btn btn-default" data-dismiss="modal">Remove Tenant</button>
+                <button type="button" id="submitTenantRemove" name="submitTenantRemove" class="btn btn-default">Remove Tenant</button>
             </div>
         </div>
     </div>
@@ -231,21 +259,18 @@
             pets : ($("#pets").val() == 'on' ? "true" : "false"),
             available: ($("#available").val() == 'on' ? "true" : "false"),
             rent: $("#rent").val(),
-            location : '@ViewBag.Location.LocationID'
+            location : '@Model.location.LocationID'
         }
 
         $.ajax({
             type: 'POST',
             url : '@Url.Action("AddApartment","Apartment")',
             data : JSON.stringify(addApartment),
-            dataType: "json",
             contentType: "application/json; charset=utf-8",
             success : function (data){
-                console.log("Hardcore you added an apartment dude")
+                window.location.reload()
             }
-        });
-
-        $("#partialViewContainer").load('@Url.Action("RefreshApartmentTable","Location", new { id = Model.location.LocationID })')
+        })
     })
     $('#submitNewTenant').click(function () {
         var addTenant = {
@@ -253,20 +278,19 @@
             tenantName : $("#tenantName").val(),
             tenantPhone: $("#tenantPhone").val(),
             tenantEmail: $("#tenantEmail").val(),
-            location : '@ViewBag.Location.LocationID'
+            location : '@Model.location.LocationID'
         }
 
         $.ajax({
             type: 'POST',
             url: '@Url.Action("AddTenant","Tenant")',
             data: JSON.stringify(addTenant),
-            dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                console.log("Hardcore you added a tenant")
+                window.location.reload()
             }
         });
-        $("#partialViewContainer").load('@Url.Action("RefreshApartmentTable","Location", new { id = Model.location.LocationID })')
+
 
     })
     $('#submitAptRemove').click(function () {
@@ -278,14 +302,12 @@
             type: 'POST',
             url: '@Url.Action("RemoveApartment","Apartment")',
             data: JSON.stringify(removeApartment),
-            dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                console.log("Hardcore you removed an apartment dude")
+                window.location.reload()
             }
         });
 
-        $("#partialViewContainer").load('@Url.Action("RefreshApartmentTable","Location", new { id = Model.location.LocationID })')
     })
     $('#submitTenantRemove').click(function () {
         var removeTenant = {
@@ -296,14 +318,12 @@
             type: 'Post',
             url: '@Url.Action("RemoveTenant", "Tenant")',
             data: JSON.stringify(removeTenant),
-            dataType: "json",
             contentType: "application/json; charset=utf-8",
             success: function (data) {
-                console.log("Hardcore you added an apartment dude")
+                window.location.reload()
             }
         });
 
-        $("#partialViewContainer").load('@Url.Action("RefreshApartmentTable","Location", new { id = Model.location.LocationID })')
     })
 
 </script>

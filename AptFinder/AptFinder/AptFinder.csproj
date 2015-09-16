@@ -274,6 +274,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\ApartmentPageVM.cs" />
     <Compile Include="ViewModels\EditLocationVM.cs" />
+    <Compile Include="ViewModels\PopulateProfileVM.cs" />
     <Compile Include="ViewModels\TenantProfileVM.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -286,7 +287,6 @@
     <Content Include="Views\Landlord\PopulateProfile.cshtml" />
     <Content Include="Views\Location\EditLocation.cshtml" />
     <Content Include="Views\Tenant\TenantProfile.cshtml" />
-    <Content Include="Views\Location\AptTable.cshtml" />
     <Content Include="Views\SignIn\SignIn.cshtml" />
     <Content Include="Views\Main\MainPage.cshtml" />
     <None Include="Web.Debug.config">

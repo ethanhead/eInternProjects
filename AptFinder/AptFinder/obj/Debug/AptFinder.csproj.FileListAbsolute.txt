@@ -220,3 +220,4 @@ C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\bi
 C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\bin\System.Web.Http.WebHost.xml
 C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.Migrations.CreatedImageTable.resources
 C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.Migrations.DeletePhotoDirectoryCol.resources
+C:\Users\Ethan\Desktop\gitRepos\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.Migrations.DeletePhotoDirectoryCol.resources
