@@ -3,9 +3,14 @@
     ViewBag.Title = "MainPage";
     Layout = "~/Views/_Layout.cshtml";
 }
-
 <h2>Find your new home</h2>
 <br />
+
+<style>
+    img.frontImgs {width:15VW;display:block;margin: auto}
+    .bottomIcon {height:100%;border-radius: 10px; padding :10px; border:2px solid black; top:50%;}
+    h4 {text-align:center}
+</style>
 <div class="row">
     <form method="POST" action="@Url.Action("LocationSearch","Location")" enctype='application/json'>
         <div class="col-md-2 col-lg-2">
@@ -108,4 +113,26 @@
         </div>                                     
         <button id="search" style="float:right" class="btn btn-success btn-md">Search Apartments</button>
     </form>
+</div>
+<br />
+<br />
+<div class="row">
+    <div class="col-md-4">
+        <div class="bottomIcon">
+            <img class="frontImgs" src="~/Assets/icons/apartment1.png" />
+            <h4>Search for Apartments in your Area</h4>
+        </div>        
+    </div>
+    <div class="col-md-4">
+        <div class="bottomIcon">
+            <img class="frontImgs" src="~/Assets/icons/home120.png" />
+            <h4>Find a home that suits you</h4>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="bottomIcon">
+            <img class="frontImgs" src="~/Assets/icons/rent4.png" />
+            <h4>Manage Tenants and Apartments</h4>
+        </div>
+    </div>
 </div>

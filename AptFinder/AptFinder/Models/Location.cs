@@ -9,7 +9,7 @@ namespace AptFinder.Models
     {
         public String Name { get; set; }
         public int LocationID { get; set; }
-        public int LandlordID { get; set; }
+        public String UserID { get; set; }
         public float Latitude { get; set; }
         public float Longitude { get; set; }
         public String Street { get; set; }

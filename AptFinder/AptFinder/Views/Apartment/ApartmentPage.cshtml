@@ -4,14 +4,16 @@
 @{
     Layout = "~/Views/_Layout.cshtml";
 }
+<style>
+    #map {border-radius : 10px}
+</style>
 <div class="row">
-
     <div class="col-md-8 col-lg-8">
         <h3>@Model.location.Name</h3>
         <p>@Model.location.Street, @Model.location.City, @Model.location.State, @Model.location.Zip</p>
     </div>
     <div class="col-md-4 col-lg-4">
-        <h3>$@(Model.maxRent == Model.minRent ? Model.minRent + "-" + Model.maxRent)</h3>
+        <h1>$@(Model.maxRent == Model.minRent ? Model.minRent.ToString() : Model.minRent + "-" + Model.maxRent)</h1>
     </div>
 </div>
 <hr />
@@ -19,9 +21,14 @@
 <div class="row">
     <div class="col-md-6 col-lg-6">
         <div class="slickContainer">
-            @foreach (var img in Model.images)
-            {
-                <img src='@Path.Combine("/Assets/photos/",img.LocationID.ToString(),img.ImagePath)' />
+            @if (Model.images.Count() <= 0){
+               <h4 style="text-align:center">There are no images for this apartment.</h4>
+            }
+            else {
+                foreach (var img in Model.images)
+                {
+                    <img src='@Path.Combine("/Assets/photos/",img.LocationID.ToString(),img.ImagePath)' />
+                }
             }
         </div>
     </div>
@@ -68,7 +75,7 @@ function initMap() {
     var marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
-        title: '@AptLocation.Name'
+        title: '@Model.location.Name'
     });
 }
 

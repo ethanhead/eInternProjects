@@ -9,7 +9,7 @@ namespace AptFinder.Models
     {
         public int ImageID { get; set; }
         public String ImagePath { get; set; }
-        public int LandlordID { get; set; }
+        public String UserID { get; set; }
         public int LocationID { get; set; }
     }
 }

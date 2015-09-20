@@ -4,11 +4,19 @@ using System.Linq;
 using System.Web;
 using AptFinder.Models;
 using System.Data.Entity;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace AptFinder.DAL
 {
-    public class ApartmentContext : DbContext
+    public class ApartmentContext : IdentityDbContext<ApplicationUser>
     {
+        public ApartmentContext()
+            : base("ApartmentContext")
+        {
+
+        }
+
         public DbSet<Apartment> Apartment { get; set; }
         public DbSet<Landlord> Landlord { get; set; }
         public DbSet<Location> Location { get; set; }

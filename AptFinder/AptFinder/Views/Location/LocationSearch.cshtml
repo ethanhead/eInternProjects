@@ -1,5 +1,7 @@
 ﻿@using AptFinder.Models
-@model IEnumerable<Location>
+@using AptFinder.ViewModels
+@using System.Linq
+@model LocationSearchVM
 
 @{ 
     Layout = "~/Views/_Layout.cshtml";
@@ -11,20 +13,77 @@
         background-color: rgba(255,255,255,.5);
         border-radius : 10px;
     }
+    img {max-height:100px}
 </style>
 <div class="row">
     <div class="col-md-6 col-lg-6">
-        @foreach (var loc in Model)
+        @if (Model.locations != null)
         {
-            <a href="@Url.Action("ApartmentPage", "Apartment", new { id = loc.LocationID })">
-                <div class="row AptItem">
-                    <h3>@loc.Name</h3>
-                    <h4>@loc.Street, @loc.City, @loc.State, @loc.Zip</h4>
+            foreach (var loc in Model.locations)
+            {                
+                <div id="@loc.LocationID" class="row AptItem"> 
+                    <div class="col-md-6">
+                        @if (Model.images.Count() > 0)
+                        {
+                            <img src="~/Assets/photos/@loc.LocationID/@Model.images.Where(i => i.LocationID == loc.LocationID).First().ImagePath" />
+                        }
+                        else
+                        {
+                            <h4>No Photo Available</h4>
+                        }
+                    </div>  
+                    <div class="col-md-6">
+                        <h4>@loc.Name</h4>
+                        <h5>@loc.Street</h5>
+                        <h5>@loc.City, @loc.State, @loc.Zip</h5>
+                    </div>
                 </div>
-            </a>
+            }
+        }
+        else
+        {
+            <div>There are no locations available in this area</div>
         }
     </div>
     <div class="col-lg-6 col-md-6">
-        Here is where the map goes
+        <div id="map"></div>
     </div>
 </div>
+
+<script>
+    @foreach(var loc in Model.locations)
+    {
+        @:$("#@loc.LocationID.ToString()" ).click(function(){ 
+        @:  window.location = "/Apartment/ApartmentPage/@loc.LocationID.ToString()"
+        @:})
+    }
+    
+
+    function initMap() {
+            var myLatLng = { lat: -25.363, lng: 131.044 };
+
+        // Create a map object and specify the DOM element for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: myLatLng,
+            scrollwheel: false,
+            zoom: 4
+        });
+
+        // Create a marker and set its position.
+        var markers = [
+            @foreach( var loc in Model.locations)
+            {
+                @:["@loc.Name", @loc.Latitude, @loc.Longitude ],
+            }
+        ]
+        for (i = 0; i < markers.length; i++) {
+            var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+            bounds.extend(position);
+            marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                title: markers[i][0]
+            });
+        }
+    }
+</script>

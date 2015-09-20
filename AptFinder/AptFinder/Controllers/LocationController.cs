@@ -34,10 +34,10 @@ namespace AptFinder.Controllers
 
 
 
-        public void UploadImage(int id)
+        public ActionResult UploadImage(int id)
         {
-            var Location = LocRepo.Locations.Where(loc => loc.LocationID == id).First();
-            var Landlord = LLRepo.Landlords.Where(l => l.LandlordID == Location.LandlordID).First();  
+            var location = LocRepo.Locations.Where(loc => loc.LocationID == id).First();
+            var landlord = LLRepo.Landlords.Where(l => l.UserID == location.UserID).First();  
 
             HttpPostedFileBase photo = Request.Files["photo"];
 
@@ -59,8 +59,8 @@ namespace AptFinder.Controllers
                         new Image
                         {
                             ImagePath = fileName,
-                            LandlordID = Landlord.LandlordID,
-                            LocationID = Location.LocationID
+                            UserID = landlord.UserID,
+                            LocationID = location.LocationID
                         }
                     );
 
@@ -68,13 +68,16 @@ namespace AptFinder.Controllers
                 }                
                 var localPath = Path.Combine(localDirectory, fileName);
                 photo.SaveAs(localPath);
+            }
+            return RedirectToAction("EditLocation", "Location", new { id = location.LocationID });
 
-            }           
         }
 
 
         public ActionResult LocationSearch(searchResults results)
         {
+            LocationSearchVM viewModel = new LocationSearchVM();
+
             var filteredLocs =
                 from loc in LocRepo.Locations
                 join apt in AptRepo.Apartments on loc.LocationID equals apt.LocationID
@@ -85,9 +88,20 @@ namespace AptFinder.Controllers
                             apt.Rent >= results.minRent &&
                             apt.Rent <= results.maxRent &&
                             apt.IsAvailable
-                select loc;            
+                select loc;
 
-            return View(filteredLocs.Distinct());
+            viewModel.locations = filteredLocs.Distinct();
+
+            List<Image> imgs = new List<Image>();
+
+            foreach (var loc in filteredLocs.Distinct())
+            {
+                imgs.Add (imageRepo.Images.Where(i => i.LocationID == loc.LocationID).First());
+            }
+
+            viewModel.images = imgs;
+
+            return View(viewModel);
         }
 
         public ActionResult EditLocation(int id)
@@ -105,7 +119,7 @@ namespace AptFinder.Controllers
             viewModel.apartments = apts;
             var loc = LocRepo.Locations.Where(l => l.LocationID == id).First();
             viewModel.location = loc;
-            var landlord = LLRepo.Landlords.Where(ll => ll.LandlordID == loc.LandlordID).First();
+            var landlord = LLRepo.Landlords.Where(ll => ll.UserID == loc.UserID).First();
             viewModel.images = imageRepo.Images.Where(i => i.LocationID == id);
             viewModel.tenants = Tenants;
             viewModel.landlord = landlord;
@@ -130,7 +144,7 @@ namespace AptFinder.Controllers
 
             viewModel.location = loc; 
 
-            viewModel.landlord = LLRepo.Landlords.Where(ll => ll.LandlordID == loc.LandlordID).First();
+            viewModel.landlord = LLRepo.Landlords.Where(ll => ll.UserID == loc.UserID).First();
             viewModel.tenants = Tenants;
             return PartialView("AptTable",viewModel);
         }
@@ -142,7 +156,7 @@ namespace AptFinder.Controllers
                 entities.Location.Add(
                     new Location
                     {
-                        LandlordID = loc.landID,
+                        UserID = loc.userID,
                         Latitude = loc.lat, 
                         Longitude = loc.lng, 
                         Street = loc.Street, 
@@ -194,7 +208,7 @@ namespace AptFinder.Controllers
 
     public class NewLocation
     {
-        public int landID { get; set; }
+        public String userID { get; set; }
         public float lat { get; set; }
         public float lng { get; set; }
         public String Street { get; set; }

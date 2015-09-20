@@ -1,5 +1,6 @@
 ﻿@using AptFinder.ViewModels
 @using AptFinder.Models
+@using System.Text
 @model PopulateProfileVM
 @{
     Layout = "~/Views/_Layout.cshtml";
@@ -132,27 +133,41 @@
         </div>
     </div>
 
-    <div>
-        <h3>@Model.landlord.Name's Profile</h3>
+    <h3>@Model.landlord.Name's Profile</h3>
         <div class="row">
             <button id="addLocButton" class="btn btn-default btn-md" data-toggle="modal" data-target="#addLocModal">Add Location</button>
             <button id="removeLocButton" class="btn btn-default btn-md" data-toggle="modal" data-target="#removeLocModal">Remove Location</button>
         </div>
-        <table class="table">
-            <thead><tr><td>Location</td></tr></thead>
-            <tbody>
-                @foreach (var loc in Model.locations)
-            {
-                    <tr>
-                        <td>@loc.Name</td>
-                        <td>
-                            <a href='@Url.Action("EditLocation","Location", new { id = loc.LocationID })' class="btn btn-default btn-sm">Edit Location</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    </div>
+        <br />
+        <h3>Locations</h3>
+        <div class="row">
+            <table class="table">
+                <thead><tr><td>Location</td><td>Street</td><td>City</td><td>State</td><td>Zipcode</td><td>Edit</td></tr></thead>
+                <tbody>
+                    @foreach (var loc in Model.locations)
+                    {
+                        <tr>
+                            <td>@(loc.Name.Length < 20 ? @loc.Name : @loc.Name.Substring(0, 17) + "...")</td>
+                            <td>
+                                @loc.Street
+                            </td>
+                            <td>
+                                @loc.City
+                            </td>
+                            <td>
+                                @loc.State
+                            </td>
+                            <td>
+                                @loc.Zip
+                            </td>
+                            <td>
+                                <a href='@Url.Action("EditLocation","Location", new { id = loc.LocationID })' class="btn btn-default btn-sm">Edit Location</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
 <script>
 
 
@@ -179,32 +194,35 @@
         addressString += $("#state").val()
 
         var GeocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + addressString + '&key=AIzaSyD7CRAmZe5P0R1v209m9bKif_CDGDy986o'
-
+       
         $.getJSON(GeocodeUrl, function (data) {
-
-            var addLocation = {
-                name: $("#name").val(),
-                street: $("#street").val(),
-                lat : data.results[0].geometry.location.lat,
-                lng : data.results[0].geometry.location.lng,
-                city: $("#city").val(),
-                state: $("#state").val(),
-                zip: $("#zip").val(),
-                landID: '@Model.landlord.LandlordID',
-                description: $("#description").val()
-            }
-            $.ajax({
-                type: 'POST',
-                url: '@Url.Action("AddLocation","Location")',
-                data: JSON.stringify(addLocation),
-                contentType: "application/json; charset=utf-8",
-                success: function (data) {
-                    console.log("success")
-                    window.location.reload()
+            try{
+                var addLocation = {
+                    name: $("#name").val(),
+                    street: $("#street").val(),
+                    lat : data.results[0].geometry.location.lat,
+                    lng : data.results[0].geometry.location.lng,
+                    city: $("#city").val(),
+                    state: $("#state").val(),
+                    zip: $("#zip").val(),
+                    userID: '@Model.landlord.UserID',
+                    description: $("#description").val()
                 }
-            })
-            
-        })
+                $.ajax({
+                    type: 'POST',
+                    url: '@Url.Action("AddLocation","Location")',
+                    data: JSON.stringify(addLocation),
+                    contentType: "application/json; charset=utf-8",
+                    success: function (data) {
+                        console.log("success")
+                        window.location.reload()
+                    }
+                })
+            }
+            catch (er) {
+                alert("The address you have entered does not exist. Please enter a real address")
+            }                           
+        })             
     })
 
     $('#removeLoc').click(function () {

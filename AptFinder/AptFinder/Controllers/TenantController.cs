@@ -36,7 +36,7 @@ namespace AptFinder.Controllers
             var location = LocRepo.Locations.Where(l => l.LocationID == tenant.LocationID).First();            
 
             viewModel.apartment = AptRepo.Apartments.Where(a => a.ApartmentID == tenant.ApartmentID).First();
-            viewModel.landlord = LLRepo.Landlords.Where(ll => ll.LandlordID == location.LandlordID).First();
+            viewModel.landlord = LLRepo.Landlords.Where(ll => ll.UserID == location.UserID).First();
             viewModel.housemates = TRepo.Tenants.Where(t => t.ApartmentID == tenant.ApartmentID);
             viewModel.tenant = tenant;
             viewModel.location = location;

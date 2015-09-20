@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-
+@using Microsoft.AspNet.Identity
 <html>
 <head>
     <link href='https://fonts.googleapis.com/css?family=Montserrat|Raleway' rel='stylesheet' type='text/css'>
@@ -13,14 +13,14 @@
     <!-- Default Theme -->
  
     <style>
+        * {font-family : 'Montserrat', sans-serif;}
         footer {
-            background-color : rgb(100,100,100);
+            background-color : rgb(40, 40, 40);
             height: 300px;
             border-top:thin solid black;
         }
         .container {max-width:90VW}        
-        #navArea {background-color : rgb(64, 64, 64);
-                  height:100px;
+        #navArea {background-color : rgb(0, 0, 80);
         }
         body {
             background-image : url(/Assets/textures/back_pattern2X.png);
@@ -28,19 +28,24 @@
         }
 
         #mainContainer {
-            background-color : rgba(100,100,100,.5);
+            background-color : rgba(50, 90, 255,.6);
             padding : 40px;
+            max-width: 75VW;
             border-radius: 10px;
             border:thin solid black;
+            min-height:600px;
         }
 
-        label { font-family : 'Montserrat', sans-serif;}
-        h2 { font-family : 'Montserrat', sans-serif;}
+        table {border:thin solid black; background-color:rgb(255, 255, 255)}
+        td {border:thin solid black}
+        tr {border:thin solid black}        
 
-        .navbar {height: 100px; background-color : rgb(100,100,100); border-bottom:thin solid black;}
+        .navbar { background-color : rgb(40, 40, 40); border-bottom:thin solid black; min-height: 120px;}
         .navbar-brand { color : white;}
-        .navbar-brand :hover { color : wheat;}
-        .navbar-brand :active { color : white;}
+        .navbar-collapse{margin-top:35px;}
+        .linkButton { margin-left:5px; margin-right:5px; color: white !important; padding:20px; border: 3px solid white; border-radius: 20px; }
+        .linkButton:hover {font-size:16px}
+
     </style>    
 </head>
 <body>
@@ -53,11 +58,20 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href='@Url.Action("MainPage","Main")'>Apartment Finder</a>
+                <a class="navbar-brand" href='@Url.Action("MainPage","Main")'><img style="height:90px" src="~/Assets/icons/rentableLogo.png"</a>
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li><a href='@Url.Action("SignIn","SignIn")'>Sign In</a></li>
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        <li><a class="linkButton" href='@Url.Action("PopulateProfile","Landlord", new { id = User.Identity.GetUserId() } )'>@User.Identity.Name</a></li>
+                        <li><a class="linkButton"  href='@Url.Action("LogOff","Account")'>Logout</a></li>
+                    }
+                    else
+                    {
+                        <li><a class="linkButton"  href='@Url.Action("Register","Account")'>Register</a></li>
+                        <li><a class="linkButton"  href='@Url.Action("Login","Account")'>Login</a></li>
+                    }                    
                 </ul>
             </div><!--/.nav-collapse -->
         </div>
@@ -76,9 +90,8 @@
     <br />
     <br />
     <br />
-    <br />
     <footer>
-
+        <div>Icons made by <a href="http://www.freepik.com" title="Freepik">Freepik</a> from <a href="http://www.flaticon.com" title="Flaticon">www.flaticon.com</a>             is licensed by <a href="http://creativecommons.org/licenses/by/3.0/" title="Creative Commons BY 3.0">CC BY 3.0</a></div>
     </footer>
 </body>
 
