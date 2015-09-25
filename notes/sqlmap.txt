@@ -1,0 +1,33 @@
+Bookstore DB design
+-----------------------
+
+Tables - 
+
+Author
+-----------------------
+AuthorID PK
+Name
+
+
+Book
+-----------------------
+BookID PK
+Title
+Author FK references Author(AuthorName)
+Genre FK references Genre(genreName)
+
+Store
+-----------------------
+StoreID PK
+Location
+
+Genre
+-----------------------
+GenreName PK
+
+Inventory
+-----------------------
+InventoryID PK
+StoreID FK references Store(StoreID)
+BookID FK references Book(BookID)
+Quantity

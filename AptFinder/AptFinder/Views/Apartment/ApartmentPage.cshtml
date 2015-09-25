@@ -47,7 +47,7 @@
         @foreach (var apt in Model.apartments)
         {
             <tr><td>@apt.Beds</td><td>@apt.Baths</td><td>@(apt.IsPetFriendly ? "Yes" : "No")</td>
-                <td>$@apt.Rent</td><td><a href='@Url.Action("RequestApartment","Apartment")' class="btn btn-default btn-sm">Request this Apartment</a></td></tr>
+                <td>$@apt.Rent</td><td><a href='#' class="btn btn-default btn-sm">Request this Apartment</a></td></tr>
         }
     </table>           
 </div>

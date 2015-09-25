@@ -94,9 +94,17 @@ namespace AptFinder.Controllers
 
             List<Image> imgs = new List<Image>();
 
+
             foreach (var loc in filteredLocs.Distinct())
             {
-                imgs.Add (imageRepo.Images.Where(i => i.LocationID == loc.LocationID).First());
+                if (imageRepo.Images.Where(i => i.LocationID == loc.LocationID).Count() > 0)
+                {
+                    imgs.Add(imageRepo.Images.Where(i => i.LocationID == loc.LocationID).First());
+                }
+                else
+                {
+                    imgs = null;
+                }                                                                 
             }
 
             viewModel.images = imgs;

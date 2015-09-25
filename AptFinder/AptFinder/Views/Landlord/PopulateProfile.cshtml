@@ -96,7 +96,7 @@
                         <hr />
                         <div class="form-group">
                             <label for="description">Description:</label>
-                            <input class="form-control" rows="5" cols="50" type="textarea" id="description" name="description" />
+                            <input class="form-control" rows="5" cols="50" type="text" id="description" name="description" />
                         </div>
                     </form>
                 </div>
@@ -147,7 +147,9 @@
                     @foreach (var loc in Model.locations)
                     {
                         <tr>
-                            <td>@(loc.Name.Length < 20 ? @loc.Name : @loc.Name.Substring(0, 17) + "...")</td>
+                            <td>
+                                @loc.Name
+                            </td>
                             <td>
                                 @loc.Street
                             </td>
@@ -193,36 +195,35 @@
         }
         addressString += $("#state").val()
 
-        var GeocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + addressString + '&key=AIzaSyD7CRAmZe5P0R1v209m9bKif_CDGDy986o'
-       
-        $.getJSON(GeocodeUrl, function (data) {
-            try{
-                var addLocation = {
-                    name: $("#name").val(),
-                    street: $("#street").val(),
-                    lat : data.results[0].geometry.location.lat,
-                    lng : data.results[0].geometry.location.lng,
-                    city: $("#city").val(),
-                    state: $("#state").val(),
-                    zip: $("#zip").val(),
-                    userID: '@Model.landlord.UserID',
-                    description: $("#description").val()
-                }
-                $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("AddLocation","Location")',
-                    data: JSON.stringify(addLocation),
-                    contentType: "application/json; charset=utf-8",
-                    success: function (data) {
-                        console.log("success")
-                        window.location.reload()
+        var GeocodeUrl = 'https://maps.googleapis.com/maps/api/geocode/json?address=' + addressString + '&key=AIzaSyD7CRAmZe5P0R1v209m9bKif_CDGDy986o'       
+            $.getJSON(GeocodeUrl, function (data) {
+                try {
+                    var addLocation = {
+                        name: $("#name").val(),
+                        street: $("#street").val(),
+                        lat: data.results[0].geometry.location.lat,
+                        lng: data.results[0].geometry.location.lng,
+                        city: $("#city").val(),
+                        state: $("#state").val(),
+                        zip: $("#zip").val(),
+                        userID: '@Model.landlord.UserID',
+                        description: $("#description").val()
                     }
-                })
-            }
-            catch (er) {
-                alert("The address you have entered does not exist. Please enter a real address")
-            }                           
-        })             
+                    $.ajax({
+                        type: 'POST',
+                        url: '@Url.Action("AddLocation","Location")',
+                        data: JSON.stringify(addLocation),
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data) {
+                            console.log("success")
+                            window.location.reload()
+                        }
+                    })
+                }
+                catch (er) {
+                    alert("The address you have entered does not exist. Please enter a real address")
+                }
+            })        
     })
 
     $('#removeLoc').click(function () {
@@ -240,6 +241,4 @@
             }
         })
     })
-
-
 </script>

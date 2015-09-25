@@ -1,0 +1,8 @@
+Web Api
+-----------------------
+
+SOAP and REST
+
+SOAP -Fully XML Based - Older Standard
+
+REST is relatively new

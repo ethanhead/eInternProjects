@@ -1,0 +1,78 @@
+Add ASP.NET Handler
+
+ProcessRequest Function(HttpContext context){ //Called whenever Http Context gets passed 
+
+context.Request // Both members of httpcontext
+context.Response //
+} 
+
+Add ASP.NET handler to empty asp.net website 
+
+
+
+Web.config- where you define handler
+
+path="*mv" - for any action mv it will go to this http handler 
+
+Design Patterns:
+Problem and a Solution
+Solution to a generally known problem 
+--Gang of 4 design pattern book--Learn these
+
+ex. singlton - There is only one copy of a given object at any given time
+
+
+MVC Design Pattern - Model, View, Controller
+
+		Controller<----------------Routing System (ASP.NET Routing Library)<----(request)------- Client 
+			^																						^	
+		 /	   \																					|
+		/		\																					|
+	Model ----- View (Generates HTML,CSS,Javascript to be parsed on the client side) ---------------- 
+	  |          |
+	Data		Presentation Logic
+	  ^				
+    /	\
+   /	 \
+Bus.	Accessing
+Logic	Data
+
+MVC is a Design Pattern!!!
+
+Already know how internet works
+Everytime you start your application is slow because it has built up objects and put them in the cache
+first response is this way until it is put into the cache.
+
+IIS has a request for a page with certain pictures - If it is something that IIS doesn't understand automatically (aspx, cshtml)
+Call up .Net - gives it the request goes to a server where the pics are located.
+Asks what best application this is used for
+(MVC is an abstraction of a handler) "MVC IS JUST A FANCY HANDLER"
+Use MVC
+
+Takes URL decides if there is a controller associated with it
+.NET takes URL and knows it uses the pictures handler. 
+Handlers Talks to Entity Framework to talk to the database (model)
+The model gives the data from the database to the view. View doesn't look at the data, it just displays it
+View generates the html, the tag, and the picture
+View sends a response to the handler 
+
+Global.asax - holds application level events (Stop, Start, Pause, Error)
+
+RouteConfig.cs - determines the valid routes for this configuration 
+Routes determine to what controller, action, and id the route sends data 
+
+Controller is a class that represents the thing that processes the request
+
+return view(model: "Whatever you want to represent as a model");
+
+you can pass any type to the model
+
+Only one model passed to the view
+
+specify scope of view - at top of view @model String
+To pass multiple values into a model, create an object with multiple properties.
+
+Study:
+Model Binding
+
+

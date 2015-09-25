@@ -1,0 +1,66 @@
+ASP.NET MVC
+---------------
+
+Dependency injection: 
+
+Generally, it is good practice to use loose coupling of objects (make it so they don't need eachother, but use common interfaces to have the same functionality)
+
+Components should know nothing about other components, only should deal with other areas of the application through abstract interfaces
+
+ex.
+If you are writing a component called MyEmailSender that will send emails, implement an interface that defines all of the public functions required to send an email
+(IEmailSender)
+
+Any other component of the application that needs to send and email will implement that interface (IEmailSender)
+
+USE PAGE 57 IN Freeman AS A REFERENCE
+
+Learn about Viewbags
+Layouts
+IOC
+
+
+Design Patterns so far
+------------------------
+MVC
+Repository 
+Factory
+Inversion of Control (Tightly Coupled to Loosely coupled) / Dependency Injection (Implementation of IOC)
+Singleton
+
+Authentication / Authorization
+------------------------------
+Authentication:
+Usernames and passwords
+Windows
+Forms/chains
+third-party
+
+Authorization :
+Privileges
+ex
+- Guest
+- Admin
+- Customer 
+
+Microsoft has an authentication library 
+ASP.NET membership - 
+Web config - had to establish a role provider, a profile provider, and membership provider 
+System.Web.Security 
+Membership class 
+Forms authentication class (.SignIn and .SignOut Methods)
+
+ASP.NET Simple Membership
+Can be used programmatically (No additional configuration necessary)
+
+ASP.NET Universal Providers
+Could set up role provider, profile provider, and membership provider as one provider
+
+
+In proc and out of proc (Types of session state)
+As soon as memory is cleared out of session state server (SQL Server). When session starts 
+
+ASP.NET Identity
+OAuth = OpenID Authentication (Open web interface - OWIN - Web standard)
+
+

@@ -1,0 +1,12 @@
+ORM model
+
+Use either DB first
+Model (schema) First or 
+Code First
+
+Add Item, Data Entity Model
+Choose Data Connection
+
+Pull in all the tables and stored procedures
+
+Schema (database map) is produced from this input 

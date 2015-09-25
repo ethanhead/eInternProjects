@@ -1,0 +1,61 @@
+CLR (Common Language Runtime)- similar to Java's JRE. 
+
+Just In Time compiler - 
+
+Visual studio compiles C# into msil
+
+CLR just in time compiler will compile the msil to run on the CLR
+
+C#
+
+Base namespace is System.
+Base class is system.object.
+Base class library makes it so that you are working with stuff that has already been made for you.
+
+C# has turned into a common intermediate language (CIL) 
+
+dll vs .exe
+
+dll has to be called upon, .exe has a main method 
+
+You can use any dll from any .Net language to be taken by any language .exe
+
+Grobal Assembly Cache (GAC) - dll is registered as public assembly (one copy) that any application can use. Deals with version-dependancy issues
+Library for every type of assembly you will need. As long as the library is referenced in the GAC, it can be used by all applications
+
+CIL is the template for the intermediate language that you want to run
+
+CLI - common language infrastructure - protocol for compiling assembly
+
+.Net
+Consistent OOP model - Executed locally but can be distributed remotely
+Code execution environment -
+Better performance than scripted and interpreted environment (because scripting is less efficient because it is not translated into bytecode)
+
+C++ turned into bytecode directly - C# is translated into msil which is translated into bytecode
+
+Managed Applications managed by the CLR itself (talks to the operating system, returns object that is initialized 
+by the constructor that you defined)- Unmanaged Applications (C++) - Do it all yourself
+
+Arrays and Strings are immutable 
+
+Strings are arrays of characters 
+
+The size/structure cannot change. You need to create a new object,add the previous object to it, then delete the first place in memory
+
+public variables should be capitolized 
+
+Heap and Stack
+Variables saved on a stack , object saved on the heap 
+variables in the stack reference memory in the heap;
+
+no memory location can be set to 0 because it is saved for null;
+
+Structs - a reference type that is stores its data on the stack, (once the function closes, there is no access to it) It is temporary 
+In C#, int,double,char,float bool are not primative types. They are structs and therefore hold memory on the stack.
+
+Difference between reference and pointer - 
+
+value types pass by value,  reference types pass by reference 
+
+pass by ref in c# by using ref parameter or out parameter

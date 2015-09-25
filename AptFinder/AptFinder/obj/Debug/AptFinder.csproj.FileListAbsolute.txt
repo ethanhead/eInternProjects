@@ -48,12 +48,11 @@ C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\bi
 C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\bin\Ninject.Web.Common.dll
 C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\bin\Ninject.Web.Mvc.dll
 C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\bin\WebActivatorEx.dll
-C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\bin\Ninject.xml
 C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\bin\Ninject.Web.Common.xml
 C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\bin\Ninject.Web.Mvc.xml
-C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.csprojResolveAssemblyReference.cache
-C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.dll
-C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.pdb
 C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.Migrations.NewDB.resources
 C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.csproj.GenerateResource.Cache
+C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.dll
+C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.pdb
+C:\Users\Ethan\Desktop\repos\eInternStuff\eInternProjects\AptFinder\AptFinder\obj\Debug\AptFinder.csprojResolveAssemblyReference.cache

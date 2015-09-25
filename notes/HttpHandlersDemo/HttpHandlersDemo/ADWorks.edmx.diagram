@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="f84de2b2192440c1b53bbc34f28561b3" Name="Diagram1">
+        <EntityTypeShape EntityType="AdventureWorks2012Model.Address" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventureWorks2012Model.AddressType" Width="1.5" PointX="0.75" PointY="11.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventureWorks2012Model.BusinessEntity" Width="1.5" PointX="0.75" PointY="8.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventureWorks2012Model.BusinessEntityAddress" Width="1.5" PointX="3" PointY="8.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventureWorks2012Model.BusinessEntityContact" Width="1.5" PointX="5.25" PointY="10.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventureWorks2012Model.ContactType" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventureWorks2012Model.CountryRegion" Width="1.5" PointX="1.5" PointY="19.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventureWorks2012Model.EmailAddress" Width="1.5" PointX="5.25" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventureWorks2012Model.Password" Width="1.5" PointX="5.25" PointY="16.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventureWorks2012Model.Person" Width="1.5" PointX="3" PointY="14" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventureWorks2012Model.PersonPhone" Width="1.5" PointX="8.25" PointY="15.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventureWorks2012Model.PhoneNumberType" Width="1.5" PointX="6" PointY="20.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="AdventureWorks2012Model.StateProvince" Width="1.5" PointX="1.5" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="AdventureWorks2012Model.FK_Address_StateProvince_StateProvinceID" ManuallyRouted="false" />
+        <AssociationConnector Association="AdventureWorks2012Model.FK_BusinessEntityAddress_Address_AddressID" ManuallyRouted="false" />
+        <AssociationConnector Association="AdventureWorks2012Model.FK_BusinessEntityAddress_AddressType_AddressTypeID" ManuallyRouted="false" />
+        <AssociationConnector Association="AdventureWorks2012Model.FK_BusinessEntityAddress_BusinessEntity_BusinessEntityID" ManuallyRouted="false" />
+        <AssociationConnector Association="AdventureWorks2012Model.FK_BusinessEntityContact_BusinessEntity_BusinessEntityID" ManuallyRouted="false" />
+        <AssociationConnector Association="AdventureWorks2012Model.FK_Person_BusinessEntity_BusinessEntityID" ManuallyRouted="false" />
+        <AssociationConnector Association="AdventureWorks2012Model.FK_BusinessEntityContact_ContactType_ContactTypeID" ManuallyRouted="false" />
+        <AssociationConnector Association="AdventureWorks2012Model.FK_BusinessEntityContact_Person_PersonID" ManuallyRouted="false" />
+        <AssociationConnector Association="AdventureWorks2012Model.FK_StateProvince_CountryRegion_CountryRegionCode" ManuallyRouted="false" />
+        <AssociationConnector Association="AdventureWorks2012Model.FK_EmailAddress_Person_BusinessEntityID" ManuallyRouted="false" />
+        <AssociationConnector Association="AdventureWorks2012Model.FK_Password_Person_BusinessEntityID" ManuallyRouted="false" />
+        <AssociationConnector Association="AdventureWorks2012Model.FK_PersonPhone_Person_BusinessEntityID" ManuallyRouted="false" />
+        <AssociationConnector Association="AdventureWorks2012Model.FK_PersonPhone_PhoneNumberType_PhoneNumberTypeID" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

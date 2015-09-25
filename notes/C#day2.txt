@@ -1,0 +1,38 @@
+C# Language Notes
+
+Internal can only be accessed by the current assembly (same dll or same .exe)
+Assemblies - .dll and .exe 
+
+By default classes are private 
+
+MSIL - intermediate language  
+
+Any delegate that returns void can be a multicast delegate
+
+Publisher / Subscriber Design Process:
+
+AC 
+-----------------------
+event Alarm 
+property time 
+
+if Alarm != null{
+	Alarm(C)
+}
+
+Keni Object
+-----------------------
+AC.Alarm += respond // Added to event delegate
+
+void Respond(){
+	System.sleep()
+}
+
+Kim Object 
+---------------------
+AC.Alarm += GTFU
+
+void GTFU(){
+	keni k = keni;
+	keni.slap();
+}

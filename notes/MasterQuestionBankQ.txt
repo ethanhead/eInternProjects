@@ -1,0 +1,23 @@
+Master Question Bank Notes
+
+What are the advantages of stored procedures:
+Maintainability
+Because scripts are in one location, updates and tracking of dependencies based on schema changes becomes easier
+
+Testing
+Can be tested independent of the application
+
+Isolation of Business Rules
+Having Stored Procedures in one location means that there's no confusion of having business rules spread over potentially disparate code files in the application
+
+Speed / Optimization
+Stored procedures are cached on the server
+Execution plans for the process are easily reviewable without having to run the application
+
+Utilization of Set-based Processing
+The power of SQL is its ability to quickly and efficiently perform set-based processing on large amounts of data; the coding equivalent is usually iterative looping, which is generally much slower
+
+Security
+Limit direct access to tables via defined roles in the database
+Provide an "interface" to the underlying data structure so that all implementation and even the data itself is shielded.
+Securing just the data and the code that accesses it is easier than applying that security within the application code itself

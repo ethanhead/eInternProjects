@@ -1,0 +1,50 @@
+//Logger without dependency injection (The old way)
+
+public class Apartment {
+
+	public Apartment() {
+	
+	}
+	
+	Logger log = new Logger();
+	
+	public void onError(Event e) {
+		log(e);
+	}
+}
+
+// But what if your boss tells you he wants you to make the log work completely with the cloud, but you have all this other shit that depends on Logger(), a specific class
+//You want that code to work with your new class, cloud based logger
+
+//This is the way to incorperate dependency injection
+
+
+//With Dependency Injection
+
+public interface ILogger{
+	
+	public void LogThatShit();
+}
+
+public class CloudBasedLoger : ILogger {
+
+	public void LogThatShit(){
+	
+		asfsadfdsafsdfsdfsd
+	}
+}}
+
+
+
+public class Apartment {
+
+	private ILogger log;
+	
+	public Apartment(ILogger l) {
+		log = l;
+	}
+	
+	public void onError(Event e) {
+		log.LogThatShit();
+	}
+}
