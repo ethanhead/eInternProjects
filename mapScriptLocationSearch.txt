@@ -1,0 +1,37 @@
+<script>
+    @foreach(var loc in Model.locations)
+    {
+        @:$("#@loc.LocationID.ToString()" ).click(function(){ 
+        @:  window.location = "/Apartment/ApartmentPage/@loc.LocationID.ToString()"
+        @:})
+    }
+    
+
+    function initMap() {
+            var myLatLng = { lat: -25.363, lng: 131.044 };
+
+        // Create a map object and specify the DOM element for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+            center: myLatLng,
+            scrollwheel: false,
+            zoom: 4
+        });
+
+        // Create a marker and set its position.
+        var markers = [
+            @foreach( var loc in Model.locations)
+            {
+                @:["@loc.Name", @loc.Latitude, @loc.Longitude ],
+            }
+        ]
+        for (i = 0; i < markers.length; i++) {
+            var position = new google.maps.LatLng(markers[i][1], markers[i][2]);
+            bounds.extend(position);
+            marker = new google.maps.Marker({
+                position: position,
+                map: map,
+                title: markers[i][0]
+            });
+        }
+    }
+</script>

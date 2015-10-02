@@ -1,0 +1,13 @@
+Context switching - Each thread is allowed by Windows to execute for a certain time period. 
+After this time period ends, the thread is paused and Windows switches to another thread
+
+Threads give the illusion that one CPU can execute multiple tasks at the same time. 
+This way you can create an application that uses parallelism (It can execute multiple threads on different Cpus in parallel) 
+
+Using the Thread class (System.Thread namespace)
+Using Thread class is not best practice for most situations
+
+Synchronization - The mechanism of ensuring that two threads don't execute a specific portion of your program at the same time
+The Console class synchronizes the use of the output stream for you so you can write to it from multiple threads 
+This means no two threads can write data to the screen at the exact same time. If one thread is using an output stream, others
+will have to wait until it is finished
